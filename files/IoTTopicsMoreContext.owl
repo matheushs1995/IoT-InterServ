@@ -1,0 +1,1224 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/mathe/ontologies/2019/4/IoTTopicsMoreContext"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/mathe/ontologies/2019/4/IoTTopicsMoreContext">
+    <Prefix name="" IRI="http://www.semanticweb.org/mathe/ontologies/2019/4/IoTTopicsMoreContext"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="IoTTopics" IRI="http://www.semanticweb.org/mathe/ontologies/2019/4/IoTTopics#"/>
+    <Prefix name="IoTTopicsMoreContext" IRI="http://www.semanticweb.org/mathe/ontologies/2019/4/IoTTopicsMoreContext#"/>
+    <Declaration>
+        <Class IRI="#AlternativeTopic"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Category"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Consumer"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Context"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Count"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Description"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GenericTopic"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IntentionRule"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Pragmatic"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Producer"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpecificTopic"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SuperContext"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Topic"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FT2_FT4,10.0,20.0"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FT2_FT4,20.0,30.0"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FT4,10.0"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasAlternativeTopic"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasAlternativeTopicForTMC"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasCategory"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasContext"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasDescriptionSP"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasIntentionTopic"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasPragmatic"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasRule"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSameGT"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSimilarDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSubContext"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSubContextWH"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSuperContext"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSuperContext2"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTopContext"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isAlternativeTopicOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isAlternativeTopicOfTMC"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isCategoryOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isDescriptionOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isDescriptionOfSP"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isGenericTopicOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isPragmaticOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isRuleOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isSimilar"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isSimilarDescripitionOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isSubContextOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isSubContextOfWH"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isSubContextPC"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isTopContextOf"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasCategorys"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasDefinition"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasName"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasSynonyms"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasTerms"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasTypeConsume"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#BodyPart"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Brazil"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Chile"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#City"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Country"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#D1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#D2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#D3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#D4"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Dog"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#GT1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#GT2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Head"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#House"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#IR1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#IR2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#IR3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Industry"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#JuizDeFora"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#LivingBeings"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Localization"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MinasGerais"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Mountain"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Person"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#PowerPlant"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Pressure"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Residence"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#RioDeJaneiro"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#State"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC10"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC4"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC5"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC6"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC7"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC8"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC9"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Temperatura"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TerrainType"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ThingsToBeMeasured"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TypeOfElevation"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TypeOfLocalization"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="rdf:PlainLiteral"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#GT3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P2"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FT1,5.0"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TMC11"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#IR4"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#heat"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#AlternativeTopic"/>
+        <Class IRI="#Topic"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Consumer"/>
+        <Class IRI="#SpecificTopic"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Consumer"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#hasTypeConsume"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Consumer"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#hasTypeConsume"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Context"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#hasCategorys"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Context"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#hasName"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Context"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#hasCategorys"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Context"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#hasName"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GenericTopic"/>
+        <Class IRI="#Topic"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GenericTopic"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasAlternativeTopic"/>
+            <Class IRI="#AlternativeTopic"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GenericTopic"/>
+        <ObjectMinCardinality cardinality="1">
+            <ObjectProperty IRI="#hasAlternativeTopic"/>
+            <Class IRI="#AlternativeTopic"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Pragmatic"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasRule"/>
+            <Class IRI="#IntentionRule"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Producer"/>
+        <Class IRI="#SpecificTopic"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Producer"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasPragmatic"/>
+            <Class IRI="#Pragmatic"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Producer"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#hasPragmatic"/>
+            <Class IRI="#Pragmatic"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecificTopic"/>
+        <Class IRI="#Topic"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecificTopic"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasGenericTopic"/>
+            <Class IRI="#GenericTopic"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecificTopic"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#hasGenericTopic"/>
+            <Class IRI="#GenericTopic"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#AlternativeTopic"/>
+        <Class IRI="#GenericTopic"/>
+        <Class IRI="#SpecificTopic"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="#FT4,10.0"/>
+        <NamedIndividual IRI="#IR1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#FT2_FT4,10.0,20.0"/>
+        <NamedIndividual IRI="#IR2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#FT2_FT4,20.0,30.0"/>
+        <NamedIndividual IRI="#IR3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#FT1,5.0"/>
+        <NamedIndividual IRI="#IR4"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Producer"/>
+        <NamedIndividual IRI="#TMC1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Consumer"/>
+        <NamedIndividual IRI="#TMC10"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Producer"/>
+        <NamedIndividual IRI="#TMC11"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Producer"/>
+        <NamedIndividual IRI="#TMC2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Producer"/>
+        <NamedIndividual IRI="#TMC3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Consumer"/>
+        <NamedIndividual IRI="#TMC4"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Consumer"/>
+        <NamedIndividual IRI="#TMC5"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Producer"/>
+        <NamedIndividual IRI="#TMC6"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Producer"/>
+        <NamedIndividual IRI="#TMC7"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Producer"/>
+        <NamedIndividual IRI="#TMC8"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Producer"/>
+        <NamedIndividual IRI="#TMC9"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#Brazil"/>
+        <NamedIndividual IRI="#Country"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTopContextOf"/>
+        <NamedIndividual IRI="#Brazil"/>
+        <NamedIndividual IRI="#Localization"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#Chile"/>
+        <NamedIndividual IRI="#Country"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTopContextOf"/>
+        <NamedIndividual IRI="#Chile"/>
+        <NamedIndividual IRI="#Localization"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSimilarDescription"/>
+        <NamedIndividual IRI="#D3"/>
+        <NamedIndividual IRI="#D2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#Dog"/>
+        <NamedIndividual IRI="#LivingBeings"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTopContextOf"/>
+        <NamedIndividual IRI="#Dog"/>
+        <NamedIndividual IRI="#ThingsToBeMeasured"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#GT1"/>
+        <NamedIndividual IRI="#D1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#GT2"/>
+        <NamedIndividual IRI="#D2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#GT3"/>
+        <NamedIndividual IRI="#D4"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#Head"/>
+        <NamedIndividual IRI="#BodyPart"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSubContextOf"/>
+        <NamedIndividual IRI="#Head"/>
+        <NamedIndividual IRI="#Dog"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#House"/>
+        <NamedIndividual IRI="#Residence"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTopContextOf"/>
+        <NamedIndividual IRI="#House"/>
+        <NamedIndividual IRI="#TypeOfLocalization"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasIntentionTopic"/>
+        <NamedIndividual IRI="#IR1"/>
+        <NamedIndividual IRI="#TMC1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasIntentionTopic"/>
+        <NamedIndividual IRI="#IR2"/>
+        <NamedIndividual IRI="#TMC2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasIntentionTopic"/>
+        <NamedIndividual IRI="#IR3"/>
+        <NamedIndividual IRI="#TMC6"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasIntentionTopic"/>
+        <NamedIndividual IRI="#IR4"/>
+        <NamedIndividual IRI="#TMC3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#Industry"/>
+        <NamedIndividual IRI="#Residence"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTopContextOf"/>
+        <NamedIndividual IRI="#Industry"/>
+        <NamedIndividual IRI="#TypeOfLocalization"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#JuizDeFora"/>
+        <NamedIndividual IRI="#City"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSubContextOf"/>
+        <NamedIndividual IRI="#JuizDeFora"/>
+        <NamedIndividual IRI="#MinasGerais"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#MinasGerais"/>
+        <NamedIndividual IRI="#State"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSubContextOf"/>
+        <NamedIndividual IRI="#MinasGerais"/>
+        <NamedIndividual IRI="#Brazil"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#Mountain"/>
+        <NamedIndividual IRI="#TypeOfElevation"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTopContextOf"/>
+        <NamedIndividual IRI="#Mountain"/>
+        <NamedIndividual IRI="#TerrainType"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasRule"/>
+        <NamedIndividual IRI="#P1"/>
+        <NamedIndividual IRI="#IR1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasRule"/>
+        <NamedIndividual IRI="#P1"/>
+        <NamedIndividual IRI="#IR2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasRule"/>
+        <NamedIndividual IRI="#P1"/>
+        <NamedIndividual IRI="#IR3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasRule"/>
+        <NamedIndividual IRI="#P2"/>
+        <NamedIndividual IRI="#IR4"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#Person"/>
+        <NamedIndividual IRI="#LivingBeings"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTopContextOf"/>
+        <NamedIndividual IRI="#Person"/>
+        <NamedIndividual IRI="#ThingsToBeMeasured"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#PowerPlant"/>
+        <NamedIndividual IRI="#Residence"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTopContextOf"/>
+        <NamedIndividual IRI="#PowerPlant"/>
+        <NamedIndividual IRI="#TypeOfLocalization"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isAlternativeTopicOf"/>
+        <NamedIndividual IRI="#Pressure"/>
+        <NamedIndividual IRI="#GT2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasCategory"/>
+        <NamedIndividual IRI="#RioDeJaneiro"/>
+        <NamedIndividual IRI="#State"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSubContextOf"/>
+        <NamedIndividual IRI="#RioDeJaneiro"/>
+        <NamedIndividual IRI="#Brazil"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC1"/>
+        <NamedIndividual IRI="#Industry"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC1"/>
+        <NamedIndividual IRI="#JuizDeFora"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC1"/>
+        <NamedIndividual IRI="#Person"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC1"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC10"/>
+        <NamedIndividual IRI="#Brazil"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC10"/>
+        <NamedIndividual IRI="#Mountain"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC10"/>
+        <NamedIndividual IRI="#PowerPlant"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC10"/>
+        <NamedIndividual IRI="#GT2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC11"/>
+        <NamedIndividual IRI="#House"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC11"/>
+        <NamedIndividual IRI="#Mountain"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC11"/>
+        <NamedIndividual IRI="#GT3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasPragmatic"/>
+        <NamedIndividual IRI="#TMC11"/>
+        <NamedIndividual IRI="#P2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC2"/>
+        <NamedIndividual IRI="#Brazil"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC2"/>
+        <NamedIndividual IRI="#Dog"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC2"/>
+        <NamedIndividual IRI="#House"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC2"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC3"/>
+        <NamedIndividual IRI="#Brazil"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC3"/>
+        <NamedIndividual IRI="#Head"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC3"/>
+        <NamedIndividual IRI="#House"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC3"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC4"/>
+        <NamedIndividual IRI="#Chile"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC4"/>
+        <NamedIndividual IRI="#Person"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC4"/>
+        <NamedIndividual IRI="#PowerPlant"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC4"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC5"/>
+        <NamedIndividual IRI="#Brazil"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC5"/>
+        <NamedIndividual IRI="#Industry"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC5"/>
+        <NamedIndividual IRI="#Person"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC5"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC6"/>
+        <NamedIndividual IRI="#Chile"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC6"/>
+        <NamedIndividual IRI="#House"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC6"/>
+        <NamedIndividual IRI="#Mountain"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC6"/>
+        <NamedIndividual IRI="#GT2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC7"/>
+        <NamedIndividual IRI="#Chile"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC7"/>
+        <NamedIndividual IRI="#Person"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC7"/>
+        <NamedIndividual IRI="#PowerPlant"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC7"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasPragmatic"/>
+        <NamedIndividual IRI="#TMC7"/>
+        <NamedIndividual IRI="#P1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC8"/>
+        <NamedIndividual IRI="#Chile"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC8"/>
+        <NamedIndividual IRI="#Dog"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC8"/>
+        <NamedIndividual IRI="#Industry"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC8"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC9"/>
+        <NamedIndividual IRI="#Dog"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC9"/>
+        <NamedIndividual IRI="#Industry"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasContext"/>
+        <NamedIndividual IRI="#TMC9"/>
+        <NamedIndividual IRI="#RioDeJaneiro"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <NamedIndividual IRI="#TMC9"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isAlternativeTopicOf"/>
+        <NamedIndividual IRI="#Temperatura"/>
+        <NamedIndividual IRI="#GT1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isAlternativeTopicOf"/>
+        <NamedIndividual IRI="#heat"/>
+        <NamedIndividual IRI="#GT3"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDefinition"/>
+        <NamedIndividual IRI="#D1"/>
+        <Literal>the degree of hotness or coldness of a body or environment (corresponding to its molecular activity)</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTerms"/>
+        <NamedIndividual IRI="#D1"/>
+        <Literal>temperature</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDefinition"/>
+        <NamedIndividual IRI="#D2"/>
+        <Literal>the force applied to a unit area of surface; measured in pascals (SI unit) or in dynes (cgs unit)</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSynonyms"/>
+        <NamedIndividual IRI="#D2"/>
+        <Literal>imperativeness, pressure, press, force per unit area, pressure sensation, air pressure, pressure level, insistence, pressing, insistency, atmospheric pressure</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTerms"/>
+        <NamedIndividual IRI="#D2"/>
+        <Literal>pressure, pressure level, force per unit area</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDefinition"/>
+        <NamedIndividual IRI="#D3"/>
+        <Literal>a force that compels</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSynonyms"/>
+        <NamedIndividual IRI="#D3"/>
+        <Literal>imperativeness, press, force per unit area, pressure sensation, air pressure, pressure level, insistence, pressing, insistency, atmospheric pressure</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTerms"/>
+        <NamedIndividual IRI="#D3"/>
+        <Literal>pressure</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDefinition"/>
+        <NamedIndividual IRI="#D4"/>
+        <Literal>a form of energy that is transferred by a difference in temperature</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSynonyms"/>
+        <NamedIndividual IRI="#D4"/>
+        <Literal>hotness, heat energy, heat, rut, heating system, heating plant, heating, warmth, passion, oestrus, high temperature, estrus</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTerms"/>
+        <NamedIndividual IRI="#D4"/>
+        <Literal>heat, heat energy</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTypeConsume"/>
+        <NamedIndividual IRI="#TMC10"/>
+        <Literal>1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTypeConsume"/>
+        <NamedIndividual IRI="#TMC4"/>
+        <Literal>2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTypeConsume"/>
+        <NamedIndividual IRI="#TMC5"/>
+        <Literal>1</Literal>
+    </DataPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasSubContext"/>
+        <ObjectProperty IRI="#hasSubContextWH"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasSuperContext2"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTopContext"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#isSubContextOf"/>
+        <ObjectProperty IRI="#isSubContextOfWH"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasAlternativeTopic"/>
+        <ObjectProperty IRI="#isAlternativeTopicOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasAlternativeTopicForTMC"/>
+        <ObjectProperty IRI="#isAlternativeTopicOfTMC"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasCategory"/>
+        <ObjectProperty IRI="#isCategoryOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasDescription"/>
+        <ObjectProperty IRI="#isDescriptionOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <ObjectProperty IRI="#isGenericTopicOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasPragmatic"/>
+        <ObjectProperty IRI="#isPragmaticOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasRule"/>
+        <ObjectProperty IRI="#isRuleOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasSubContext"/>
+        <ObjectProperty IRI="#isSubContextOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasSubContextWH"/>
+        <ObjectProperty IRI="#isSubContextOfWH"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasTopContext"/>
+        <ObjectProperty IRI="#isTopContextOf"/>
+    </InverseObjectProperties>
+    <SymmetricObjectProperty>
+        <ObjectProperty IRI="#hasSimilarDescription"/>
+    </SymmetricObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty IRI="#isSimilar"/>
+    </SymmetricObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="#hasSimilarDescription"/>
+    </TransitiveObjectProperty>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="#hasSubContextWH"/>
+    </TransitiveObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasAlternativeTopic"/>
+        <Class IRI="#GenericTopic"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasCategory"/>
+        <Class IRI="#Context"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasDescription"/>
+        <Class IRI="#GenericTopic"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <Class IRI="#SpecificTopic"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasIntentionTopic"/>
+        <Class IRI="#IntentionRule"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasPragmatic"/>
+        <Class IRI="#Producer"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasRule"/>
+        <Class IRI="#Pragmatic"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasTopContext"/>
+        <Class IRI="#SuperContext"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isSimilar"/>
+        <Class IRI="#AlternativeTopic"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isSubContextOf"/>
+        <Class IRI="#Context"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasAlternativeTopic"/>
+        <Class IRI="#AlternativeTopic"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasCategory"/>
+        <Class IRI="#Category"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasDescription"/>
+        <Class IRI="#Description"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasGenericTopic"/>
+        <Class IRI="#GenericTopic"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasIntentionTopic"/>
+        <Class IRI="#Producer"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasPragmatic"/>
+        <Class IRI="#Pragmatic"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasRule"/>
+        <Class IRI="#IntentionRule"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasSubContext"/>
+        <Class IRI="#Context"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTopContext"/>
+        <Class IRI="#Context"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isSimilar"/>
+        <Class IRI="#AlternativeTopic"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isSubContextOf"/>
+        <Class IRI="#Context"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isSubContextPC"/>
+        <Class IRI="#SuperContext"/>
+    </ObjectPropertyRange>
+    <SubObjectPropertyOf>
+        <ObjectPropertyChain>
+            <ObjectProperty IRI="#hasContext"/>
+            <ObjectProperty IRI="#isSubContextPC"/>
+        </ObjectPropertyChain>
+        <ObjectProperty IRI="#hasSuperContext"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectPropertyChain>
+            <ObjectProperty IRI="#hasContext"/>
+            <ObjectProperty IRI="#isTopContextOf"/>
+        </ObjectPropertyChain>
+        <ObjectProperty IRI="#hasSuperContext2"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectPropertyChain>
+            <ObjectProperty IRI="#hasGenericTopic"/>
+            <ObjectProperty IRI="#hasAlternativeTopic"/>
+        </ObjectPropertyChain>
+        <ObjectProperty IRI="#hasAlternativeTopicForTMC"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectPropertyChain>
+            <ObjectProperty IRI="#hasGenericTopic"/>
+            <ObjectProperty IRI="#isGenericTopicOf"/>
+        </ObjectPropertyChain>
+        <ObjectProperty IRI="#hasSameGT"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectPropertyChain>
+            <ObjectProperty IRI="#hasSimilarDescription"/>
+            <ObjectProperty IRI="#isDescriptionOf"/>
+        </ObjectPropertyChain>
+        <ObjectProperty IRI="#isDescriptionOfSP"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectPropertyChain>
+            <ObjectProperty IRI="#isSubContextOfWH"/>
+            <ObjectProperty IRI="#isTopContextOf"/>
+        </ObjectPropertyChain>
+        <ObjectProperty IRI="#isSubContextPC"/>
+    </SubObjectPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasCategorys"/>
+        <Class IRI="#Context"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasName"/>
+        <Class IRI="#Context"/>
+    </DataPropertyDomain>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#hasSubContextWH</IRI>
+        <Literal>WH - Without Hierarchy</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.6.2018-09-06T00:27:41Z) https://github.com/owlcs/owlapi -->
+

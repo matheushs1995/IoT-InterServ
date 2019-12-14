@@ -1,0 +1,43 @@
+> - FT1
+< - FT2
+= - FT3
+>= - FT4
+<= - FT5
+!= - FT6
+
+The other codes is the combination of the codes above. (e.g., FT1_FT3)   -----    FT1_FT3-20.2,30'
+
+FT1_FT2
+FT1_FT3
+FT1_FT5
+FT1_FT6
+
+FT2_FT1
+FT2_FT3
+FT2_FT4
+FT2_FT6
+
+FT3_FT1
+FT3_FT2
+FT3_FT3
+FT3_FT4
+FT3_FT5
+FT3_FT6
+
+FT4_FT2
+FT4_FT3
+FT4_FT5
+FT4_FT6
+
+FT5_FT1
+FT5_FT3
+FT5_FT4
+FT5_FT6
+
+FT6_FT1
+FT6_FT2
+FT6_FT3
+FT6_FT4
+FT6_FT5
+FT6_FT6
+
