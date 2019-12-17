@@ -195,8 +195,10 @@ public class IoTDescriptionDAO {
                 unitSource = values[3];
 
                 function = values[4];
-                
-                if(!verifyFunction(function)) return "";
+
+                if (!verifyFunction(function)) {
+                    return "";
+                }
 
                 unit = values[5];
             }
@@ -345,11 +347,13 @@ public class IoTDescriptionDAO {
                 String unitT = renderer.render(unitInd);
                 if (unitT.compareTo(unit) != 0) {
                     String tFunction = getFuntion(unit, unitT);
-                    if(tFunction.isEmpty()) return "";
-                    
-                    tFunction = function +","+tFunction;
+                    if (tFunction.isEmpty()) {
+                        return "";
+                    }
+
+                    tFunction = function + "," + tFunction;
                     createUnitConvert(unitSource, unitT, tFunction);
-                
+
                     tFunction = getInverseFunction(tFunction);
                     createUnitConvert(unitT, unitSource, tFunction);
                 }
@@ -357,10 +361,10 @@ public class IoTDescriptionDAO {
             }
 
             createUnitConvert(unitSource, unit, function);
-            
+
             function = getInverseFunction(function);
             createUnitConvert(unit, unitSource, function);
-            
+
             ind2 = factory.getOWLNamedIndividual(IRI.create(uri + unitSource));
 
         } else {
@@ -552,59 +556,117 @@ public class IoTDescriptionDAO {
     }
 
     private static String getInverseFunction(String function) {
-        
-        String[] operations =  function.split(",");
+
+        String[] operations = function.split(",");
         String[] operation;
-        
-        function="";
-        
-        operation = operations[operations.length-1].split("_");
-        function += getInverseOperator(operation[0])+"_"+operation[1];
-        
-        
-        for(int i = operations.length-2; i>=0; i--){
+
+        function = "";
+
+        operation = operations[operations.length - 1].split("_");
+        function += getInverseOperator(operation[0]) + "_" + operation[1];
+
+        for (int i = operations.length - 2; i >= 0; i--) {
             operation = operations[i].split("_");
-            function += ","+getInverseOperator(operation[0])+"_"+operation[1];
+            function += "," + getInverseOperator(operation[0]) + "_" + operation[1];
         }
-        
+
         return function;
     }
 
     private static String getInverseOperator(String op) {
-        if(op.compareTo("O1")==0) return "O2";
-        if(op.compareTo("O2")==0) return "O1";
-        if(op.compareTo("O3")==0) return "O4";
-        if(op.compareTo("O4")==0) return "O3";
-        if(op.compareTo("O5")==0) return "O6";
+        if (op.compareTo("O1") == 0) {
+            return "O2";
+        }
+        if (op.compareTo("O2") == 0) {
+            return "O1";
+        }
+        if (op.compareTo("O3") == 0) {
+            return "O4";
+        }
+        if (op.compareTo("O4") == 0) {
+            return "O3";
+        }
+        if (op.compareTo("O5") == 0) {
+            return "O6";
+        }
         return "O5";
     }
 
     private static boolean verifyFunction(String function) {
-        
-        String[] operations =  function.split(",");
+
+        String[] operations = function.split(",");
         String[] operation;
-        
-        for(int i = 0; i< operations.length; i++){
+
+        for (int i = 0; i < operations.length; i++) {
             operation = operations[i].split("_");
-            if(!(isOperator(operation[0]) && isValue(operation[1]))) return false;
+            if (!(isOperator(operation[0]) && isValue(operation[1]))) {
+                return false;
+            }
         }
-        
+
         return true;
     }
 
     private static boolean isOperator(String op) {
-        if(op.compareTo("O1")==0 || op.compareTo("O2")==0 || op.compareTo("O3")==0 || op.compareTo("O4")==0 || op.compareTo("O5")==0 || op.compareTo("O6")==0) return true;
-        
+        if (op.compareTo("O1") == 0 || op.compareTo("O2") == 0 || op.compareTo("O3") == 0 || op.compareTo("O4") == 0 || op.compareTo("O5") == 0 || op.compareTo("O6") == 0) {
+            return true;
+        }
+
         return false;
     }
 
     private static boolean isValue(String value) {
-        try{
+        try {
             Float.parseFloat(value);
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
+    }
+
+    public static String getAllInfomationAboutIoTInTHML(String iot) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + iot));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasIdentification"));
+
+        String tempS = "<strong class='thick space1'>Name:</strong>"
+                    + "<strong>"+ iot + "</strong>;";
+        for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            tempS += "<strong class='thick space1'>Identification:</strong>"
+                    + "<strong>"+ renderer.render(indO) + "</strong>;";
+            
+        }
+        
+        p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopicMoreContext"));
+        for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            tempS += "<strong class='thick space1'>Specific Topic:</strong>"
+                    + "<strong>"+ renderer.render(indO) + "</strong>;";
+
+        }
+        
+        p = factory.getOWLObjectProperty(IRI.create(uri + "hasUnit"));
+        for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            tempS += "<strong class='thick space1'>Unit:</strong>"
+                    + "<strong>"+ renderer.render(indO) + "</strong>;";
+            
+        }
+        
+        OWLDataProperty d = factory.getOWLDataProperty(IRI.create(uri + "hasKeywords"));
+        for (OWLLiteral indO : reasoner.getDataPropertyValues(ind, d)) {
+            tempS += "<strong class='thick space1'>KeyWords:</strong>"
+                    + "<strong>"+ renderer.render(indO) + "</strong>;";
+            
+        }
+        
+        d = factory.getOWLDataProperty(IRI.create(uri + "hasGitHubLink"));
+        for (OWLLiteral indO : reasoner.getDataPropertyValues(ind, d)) {
+            tempS += "<strong class='thick space1'>GitHub Link:</strong>"
+                    + "<strong>"+ renderer.render(indO) + "</strong>;";
+            
+        }
+        
+        return tempS;
     }
 
 }

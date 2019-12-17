@@ -15,8 +15,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     </head>
     <body>
+
         <div class="divTop">
-           <nav>
+            <nav>
                 <div class="containerDivTop_left">
                     <a class="home" href="index.jsp">
                         <i class="fa fa-home"></i>
@@ -34,7 +35,7 @@
                         </button>
                         <div class="contentDivTop_list left" id="thisList_1">
                             <p class="itemList"><a href="CreateIoTController">Create</a></p><br>
-                            <p class="itemList"><a href="SearchIoTsController">Search</a></p>
+                            <p class="itemList"><a href="">Search</a></p>
                         </div>
                     </div>
                     <div class="containerDivTop_list">
@@ -56,7 +57,7 @@
                             <p class="itemList">All</p><br><p class="itemList">IoT</p><br><p class="itemList">Topic</p><br><p class="itemList">Rule</p>
                         </div>
                     </div>
-                     <div class="containerDivTop_list">
+                    <div class="containerDivTop_list">
                         <form action="VisualizationController" method="get">    
                             <button class="btnList">
                                 <span class="drop">Visualization</span>
@@ -70,6 +71,15 @@
         </div>
 
         <div class="divBody" style="background-image: url('images/Background.jpg');">
+
+            <div id="divMaster" style='max-width: 70%; max-height: calc(100vh - 116px); overflow: auto;' class="divMaster">
+                <form id="form" class="form">
+                    <c:forEach items="${iots}" var="iot"> 
+                        ${iot}  
+                    </c:forEach> 
+                </form>
+            </div>
+
         </div>
 
         <div id="dropDownSelect1"></div>

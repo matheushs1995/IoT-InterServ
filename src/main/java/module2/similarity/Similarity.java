@@ -11,6 +11,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import module2.dao.IoTTopicsMoreContextDAO;
+import module2.order.Order;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -130,7 +131,7 @@ public class Similarity {
             return descsAndSimilarity.get(0)[0] + "," + IoTTopicsMoreContextDAO.getFirstAltenatveTopicOfGT(descsAndSimilarity.get(0)[1]);
         }
 
-        quickSort(descsAndSimilarity, 0, descsAndSimilarity.size() - 1);
+        descsAndSimilarity = Order.orderListVector(descsAndSimilarity);
 
         String tempS = "";
         List<String> gts = new ArrayList<>();
@@ -189,7 +190,7 @@ public class Similarity {
             return descsAndSimilarity.get(0)[0] + "," + descsAndSimilarity.get(0)[1];
         }
 
-        quickSort(descsAndSimilarity, 0, descsAndSimilarity.size() - 1);
+        descsAndSimilarity = Order.orderListVector(descsAndSimilarity);
 
         String tempS = "";
         List<String> gts = new ArrayList<>();
@@ -236,8 +237,6 @@ public class Similarity {
         return tempS;
     }
     
-    
-    
     public static boolean ifExists(List<String> gts, String gt){
         for(String v: gts){
             if(v.compareTo(gt)==0){
@@ -246,37 +245,6 @@ public class Similarity {
         }
         
         return false;
-    }
-
-    public static void quickSort(List<String[]> v, int left, int right) {
-        int l = left;
-        int r = right;
-        double pivo = Double.parseDouble(v.get((l + r) / 2)[1]);
-        String[] troca;
-
-        while (l <= r) {
-            while (Double.parseDouble(v.get(l)[1]) < pivo) {
-                l = l + 1;
-            }
-            while (Double.parseDouble(v.get(r)[1]) > pivo) {
-                r = r - 1;
-            }
-            if (l <= r) {
-                troca = v.get(l);
-                v.set(l, v.get(r));
-                v.set(r, troca);
-                l = l + 1;
-                r = r - 1;
-            }
-        }
-        if (r > left) {
-            quickSort(v, left, r);
-        }
-
-        if (l < right) {
-            quickSort(v, l, right);
-        }
-
     }
 
     public static String parseListToString(List<String> list) {

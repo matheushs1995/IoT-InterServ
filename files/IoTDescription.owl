@@ -117,6 +117,12 @@
         <DataProperty IRI="#hasFunction"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#hasGitHubLink"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasKeywords"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#Celsius"/>
     </Declaration>
     <Declaration>
@@ -154,6 +160,21 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#TMC7"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#FahrenheitToCelsius"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#FahrenheitToKelvin"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#KelvinToFahrenheit"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Fahrenheit"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#CelsiusToFahrenheit"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="#Consumer"/>
@@ -417,36 +438,56 @@
     <DataPropertyAssertion>
         <DataProperty IRI="#hasFunction"/>
         <NamedIndividual IRI="#CelsiusToFahrenheit"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">O3_9,O4_5,O1_32</Literal>
+        <Literal>O3_9,O4_5,O1_32</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasFunction"/>
         <NamedIndividual IRI="#CelsiusToKelvin"/>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">O1_273.15</Literal>
+        <Literal>O1_273.15</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasFunction"/>
         <NamedIndividual IRI="#FahrenheitToCelsius"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">O2_32,O3_5,O4_9</Literal>
+        <Literal>O2_32,O3_5,O4_9</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasFunction"/>
         <NamedIndividual IRI="#FahrenheitToKelvin"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">O2_32,O3_5,O4_9,O1_273.15</Literal>
+        <Literal>O2_32,O3_5,O4_9,O1_273.15</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasGitHubLink"/>
+        <NamedIndividual IRI="#IoT1"/>
+        <Literal>https://github.com/Marcos154/iot-kafka-producer/</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasKeywords"/>
+        <NamedIndividual IRI="#IoT1"/>
+        <Literal>Weather, Temp, Arduino, Uno, C</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasGitHubLink"/>
+        <NamedIndividual IRI="#IoT2"/>
+        <Literal>https://github.com/Lucas121/kafka/</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasKeywords"/>
+        <NamedIndividual IRI="#IoT2"/>
+        <Literal>Java, Temperature, Android</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasFunction"/>
         <NamedIndividual IRI="#KelvinToCelsius"/>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">O2_273.15</Literal>
+        <Literal>O2_273.15</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasFunction"/>
         <NamedIndividual IRI="#KelvinToFahrenheit"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">O2_273.15,O3_9,O4_5,O1_32</Literal>
+        <Literal>O2_273.15,O3_9,O4_5,O1_32</Literal>
     </DataPropertyAssertion>
     <InverseObjectProperties>
-        <ObjectProperty IRI="#isContextOf"/>
         <ObjectProperty IRI="#hasContext"/>
+        <ObjectProperty IRI="#isContextOf"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
         <ObjectProperty IRI="#hasIdentification"/>
@@ -457,16 +498,16 @@
         <ObjectProperty IRI="#isSensorOf"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
-        <ObjectProperty IRI="#isSourceUnitOf"/>
         <ObjectProperty IRI="#hasSourceUnit"/>
+        <ObjectProperty IRI="#isSourceUnitOf"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
         <ObjectProperty IRI="#hasTargetUnit"/>
         <ObjectProperty IRI="#isTargetUnitOf"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
-        <ObjectProperty IRI="#isTopicOf"/>
         <ObjectProperty IRI="#hasTopicMoreContext"/>
+        <ObjectProperty IRI="#isTopicOf"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
         <ObjectProperty IRI="#hasUnit"/>
@@ -536,16 +577,16 @@
     <SubObjectPropertyOf>
         <ObjectPropertyChain>
             <ObjectProperty IRI="#isIdentificationOf"/>
-            <ObjectProperty IRI="#hasUnit"/>
+            <ObjectProperty IRI="#hasTopicMoreContext"/>
         </ObjectPropertyChain>
-        <ObjectProperty IRI="#ThisIdentificationHasUnit"/>
+        <ObjectProperty IRI="#hasTopicMoreContextByID"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectPropertyChain>
             <ObjectProperty IRI="#isIdentificationOf"/>
-            <ObjectProperty IRI="#hasTopicMoreContext"/>
+            <ObjectProperty IRI="#hasUnit"/>
         </ObjectPropertyChain>
-        <ObjectProperty IRI="#hasTopicMoreContextByID"/>
+        <ObjectProperty IRI="#ThisIdentificationHasUnit"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectPropertyChain>
@@ -565,5 +606,5 @@
 
 
 
-<!-- Generated by the OWL API (version 3.4.9.2-ansell) https://github.com/ansell/owlapi -->
+<!-- Generated by the OWL API (version 4.5.6.2018-09-06T00:27:41Z) https://github.com/owlcs/owlapi -->
 

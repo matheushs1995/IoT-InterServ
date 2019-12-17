@@ -72,6 +72,14 @@
         <servlet-name>GetAlternativeTopicController</servlet-name>
         <servlet-class>module2.controller.GetAlternativeTopicController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchIoTsController</servlet-name>
+        <servlet-class>module2.controller.SearchIoTsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchTopicsController</servlet-name>
+        <servlet-class>module2.controller.SearchTopicsController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreateTopicController</servlet-name>
         <url-pattern>/CreateTopicController</url-pattern>
@@ -143,6 +151,14 @@
     <servlet-mapping>
         <servlet-name>GetAlternativeTopicController</servlet-name>
         <url-pattern>/GetAlternativeTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchIoTsController</servlet-name>
+        <url-pattern>/SearchIoTsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchTopicsController</servlet-name>
+        <url-pattern>/SearchTopicsController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
