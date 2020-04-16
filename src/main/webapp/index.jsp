@@ -10,8 +10,8 @@
         <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
         <link rel="stylesheet" type="text/css" href="css/util.css">
-        <link rel="stylesheet" type="text/css" href="css/IoT10.css">
-        <script src="js/IoT18.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/IoT11.css">
+        <script src="js/IoT19.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     </head>
     <body>
@@ -44,7 +44,7 @@
                         </button>
                         <div class="contentDivTop_list left" id="thisList_2">
                             <p class="itemList"><a href="CreateTopicController">Create</a></p><br>
-                            <p class="itemList"><a href="">Search</a></p>
+                            <p class="itemList"><a href="SearchTopicsController">Search</a></p>
                         </div>
                     </div>
                     <div class="containerDivTop_list">

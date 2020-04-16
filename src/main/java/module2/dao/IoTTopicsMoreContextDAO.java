@@ -9,15 +9,19 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.model.*;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+import module2.model.*;
 import module2.similarity.NaturalLanguageProcessor;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
 
 public class IoTTopicsMoreContextDAO {
 
-    static File file = new File("C:/Users/mathe/Documents/Dropbox/Projetos/PragmaticIoT-V2/files/IoTTopicsMoreContext.owl");
+    static String projectDir = "C:\\Users\\mathe\\Documents\\Dropbox\\Projetos\\PRIME-IoT";
+    static File file = new File(projectDir + "/Files/Module2.Ontologies/IoTTopicsMoreContext.owl");
     static String uri = "http://www.semanticweb.org/mathe/ontologies/2019/4/IoTTopicsMoreContext#";
     static long lastModification = 0;
     static OWLOntologyManager manager;
@@ -43,6 +47,35 @@ public class IoTTopicsMoreContextDAO {
         lastModification = file.lastModified();
     }
 
+    public static String getFirstNameOfIndividualClass(String indName) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + indName));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasGenericTopic"));
+
+        for (OWLClass c : reasoner.getTypes(ind, true).getFlattened()) {
+            return renderer.render(c);
+        }
+
+        return "";
+
+    }
+
+    public static String getFirstNameOfIndividualClassForRules(String indName) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + indName));
+
+        for (OWLClass c : reasoner.getTypes(ind, true).getFlattened()) {
+            return renderer.render(c).split("#")[1];
+        }
+
+        return "";
+
+    }
+
     public static boolean tmcExist(String tmc) throws OWLOntologyCreationException {
 
         prepareAcess();
@@ -61,6 +94,22 @@ public class IoTTopicsMoreContextDAO {
         List<String> listTopics = new ArrayList<>();
 
         OWLClass topicClass = factory.getOWLClass(IRI.create(uri + "AlternativeTopic"));
+
+        for (OWLNamedIndividual topicInd : reasoner.getInstances(topicClass, false).getFlattened()) {
+            listTopics.add(renderer.render(topicInd));
+        }
+
+        return listTopics;
+
+    }
+
+    public static List<String> getAllSpecificTopic() throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        List<String> listTopics = new ArrayList<>();
+
+        OWLClass topicClass = factory.getOWLClass(IRI.create(uri + "SpecificTopic"));
 
         for (OWLNamedIndividual topicInd : reasoner.getInstances(topicClass, false).getFlattened()) {
             listTopics.add(renderer.render(topicInd));
@@ -216,7 +265,7 @@ public class IoTTopicsMoreContextDAO {
     }
 
     public static String save(String[] values) throws OWLOntologyCreationException, OWLOntologyStorageException {
-        if (values.length != 7) {
+        if (values.length != 6) {
             return "";
         }
 
@@ -255,8 +304,7 @@ public class IoTTopicsMoreContextDAO {
         }
         int[] test = new int[contexts.length];
 
-        String[] topicInfo = values[6].split(";");
-
+        //String[] topicInfo = values[6].split(";");
         prepareAcess();
         OWLClass class1 = factory.getOWLClass(IRI.create(uri + "SuperContext"));
         OWLNamedIndividual ind1, ind2;
@@ -1031,7 +1079,11 @@ public class IoTTopicsMoreContextDAO {
         OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + topic));
         OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "isAlternativeTopicOf"));
 
-        return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+        if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
+            return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+        }
+        
+        return "";
     }
 
     public static List<String> getAllAlternativeTopicsOfGT(String topic) throws OWLOntologyCreationException {
@@ -1181,11 +1233,39 @@ public class IoTTopicsMoreContextDAO {
         }
     }
 
+    public static String getTerms(String desc) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + desc));
+        OWLDataProperty ddef = factory.getOWLDataProperty(IRI.create(uri + "hasTerms"));
+
+        if (reasoner.getDataPropertyValues(ind, ddef).iterator().hasNext()) {
+            return renderer.render(reasoner.getDataPropertyValues(ind, ddef).iterator().next());
+        }
+
+        return "";
+
+    }
+
     public static String getDefinition(String desc) throws OWLOntologyCreationException {
         prepareAcess();
 
         OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + desc));
         OWLDataProperty ddef = factory.getOWLDataProperty(IRI.create(uri + "hasDefinition"));
+
+        if (reasoner.getDataPropertyValues(ind, ddef).iterator().hasNext()) {
+            return renderer.render(reasoner.getDataPropertyValues(ind, ddef).iterator().next());
+        }
+
+        return "";
+
+    }
+
+    public static String getSynonyms(String desc) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + desc));
+        OWLDataProperty ddef = factory.getOWLDataProperty(IRI.create(uri + "hasSynonyms"));
 
         if (reasoner.getDataPropertyValues(ind, ddef).iterator().hasNext()) {
             return renderer.render(reasoner.getDataPropertyValues(ind, ddef).iterator().next());
@@ -1206,6 +1286,433 @@ public class IoTTopicsMoreContextDAO {
         }
 
         return "";
+
+    }
+
+    public static String getAllInfomationAboutTopicInTHML(String topic) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + topic));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasAlternativeTopicForTMC"));
+
+        String tempS = "<strong class='thick space2'>Name:</strong>"
+                + "<strong class='space1'>" + topic + "</strong>";
+
+        boolean testFirst = true;
+        for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (testFirst) {
+                tempS += "<strong class='thick space2'>Alternative Topics:</strong>"
+                        + "<strong class='space1'>" + renderer.render(indO);
+                testFirst = false;
+            } else {
+                tempS += "," + renderer.render(indO);
+            }
+        }
+
+        if (!testFirst) {
+            tempS += ";</strong>";
+            testFirst = true;
+        }
+
+        p = factory.getOWLObjectProperty(IRI.create(uri + "hasGenericTopic"));
+        for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            tempS += "<strong class='thick space2'>Generic Topic:</strong>"
+                    + "<strong class='space1'>" + renderer.render(indO) + ";</strong>";
+
+        }
+
+        p = factory.getOWLObjectProperty(IRI.create(uri + "hasContext"));
+        for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (testFirst) {
+                tempS += "<strong class='thick space2'>Contexts:</strong>"
+                        + "<strong class='space1'>" + renderer.render(indO);
+                testFirst = false;
+            } else {
+                tempS += "," + renderer.render(indO);
+            }
+        }
+
+        if (!testFirst) {
+            tempS += ";</strong>";
+            testFirst = true;
+        }
+
+        OWLDataProperty d = factory.getOWLDataProperty(IRI.create(uri + "hasTypeConsume"));
+        tempS += "<strong class='thick space2'>Type:</strong>"
+                + "<strong class='space1'>";
+        if (reasoner.getDataPropertyValues(ind, d).iterator().hasNext()) {
+            tempS += "Consumer";
+        } else {
+            tempS += "Producer";
+        }
+        tempS += ";</strong>";
+
+        return tempS;
+    }
+
+    public static String getPragmatic(String topic) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + topic));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasPragmatic"));
+
+        if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
+            return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+        }
+
+        return "";
+    }
+
+    public static List<String> getContextsAndParents(String topic) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        List<String> currentContext = getContexts(topic);
+        List<String> contexts = new ArrayList<>();
+
+        OWLNamedIndividual ind;
+        OWLObjectProperty p1 = factory.getOWLObjectProperty(IRI.create(uri + "isTopContextOf"));
+        OWLObjectProperty p2 = factory.getOWLObjectProperty(IRI.create(uri + "hasCategory"));
+
+        for (String c : currentContext) {
+
+            ind = factory.getOWLNamedIndividual(IRI.create(uri + c));
+            if (reasoner.getObjectPropertyValues(ind, p2).getFlattened().iterator().hasNext()) {
+                contexts.add(renderer.render(reasoner.getObjectPropertyValues(ind, p2).getFlattened().iterator().next()));
+                contexts.add(c);
+            }
+
+            while (reasoner.getObjectPropertyValues(ind, p1).getFlattened().iterator().hasNext()) {
+                String tempContext = renderer.render(reasoner.getObjectPropertyValues(ind, p1).getFlattened().iterator().next());
+                ind = factory.getOWLNamedIndividual(IRI.create(uri + tempContext));
+                if (reasoner.getObjectPropertyValues(ind, p2).getFlattened().iterator().hasNext()) {
+                    contexts.add(renderer.render(reasoner.getObjectPropertyValues(ind, p2).getFlattened().iterator().next()));
+                    contexts.add(tempContext);
+                }
+            }
+        }
+
+        return contexts;
+    }
+
+    public static List<String[]> getRule(String pragmatic) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        List<String[]> rules = new ArrayList<>();
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + pragmatic));
+        OWLObjectProperty p1 = factory.getOWLObjectProperty(IRI.create(uri + "hasRule"));
+        OWLObjectProperty p2 = factory.getOWLObjectProperty(IRI.create(uri + "hasIntentionTopic"));
+
+        OWLNamedIndividual ind2;
+        String r, t;
+        for (OWLNamedIndividual rule : reasoner.getObjectPropertyValues(ind, p1).getFlattened()) {
+            ind2 = factory.getOWLNamedIndividual(IRI.create(uri + renderer.render(rule)));
+
+            r = getFirstNameOfIndividualClassForRules(renderer.render(rule));
+
+            t = renderer.render(reasoner.getObjectPropertyValues(ind2, p2).getFlattened().iterator().next());
+            rules.add(new String[]{r, t});
+
+        }
+
+        return rules;
+    }
+
+    public static List<String> getRuleWithoutIntention(String pragmatic) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        List<String> rules = new ArrayList<>();
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + pragmatic));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasRule"));
+
+        OWLNamedIndividual ind2;
+        for (OWLNamedIndividual rule : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            rules.add(getFirstNameOfIndividualClassForRules(renderer.render(rule)));
+        }
+
+        return rules;
+    }
+
+    public static List<GenericModel1> similarTopic(String t) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        List<GenericModel1> topics = new ArrayList<>();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + t));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "isSimilar"));
+
+        for (OWLNamedIndividual topicInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (renderer.render(topicInd).compareTo(t) != 0) {
+                topics.add(new GenericModel1(renderer.render(topicInd)));
+            }
+        }
+
+        return topics;
+
+    }
+
+    public static GenericModel3 getInformationAboutAlternativeTopic(String t) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        String genericTopic = getGenericTopicOfAT(t);
+        String description = getDescription(genericTopic);
+
+        GenericModel3 topic = new GenericModel3(t, genericTopic);
+
+        if (description.isBlank()) {
+            return topic;
+        }
+
+        String primaryTerms = getTerms(description);
+        String primaryDefinition = getDefinition(description);
+        String primarySynonyms = getDefinition(description);
+
+        topic.setPrimaryDescription(primaryTerms, primaryDefinition, primarySynonyms);
+
+        List<String> similarDescriptions = getSimilarDescriptions(description);
+
+        for (String sDesc : similarDescriptions) {
+            topic.setSecondaryDescription(getTerms(sDesc), getDefinition(sDesc), getDefinition(sDesc));
+        }
+
+        return topic;
+
+    }
+
+    private static String getDescription(String genericTopic) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + genericTopic));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasDescription"));
+
+        if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
+            return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+        }
+
+        return "";
+    }
+
+    private static List<String> getSimilarDescriptions(String desc) throws OWLOntologyCreationException {
+
+        List<String> descs = new ArrayList<>();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + desc));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasSimilarDescription"));
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (renderer.render(nInd).compareTo(desc) != 0) {
+                descs.add(renderer.render(nInd));
+            }
+        }
+
+        return descs;
+
+    }
+
+    public static List<String> getSuperContextOfTopic(String t) throws OWLOntologyCreationException {
+
+        List<String> sc = new ArrayList<>();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + t));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasSuperContext"));
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (renderer.render(nInd).compareTo(t) != 0) {
+                sc.add(renderer.render(nInd));
+            }
+        }
+
+        p = factory.getOWLObjectProperty(IRI.create(uri + "hasSuperContext2"));
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (renderer.render(nInd).compareTo(t) != 0) {
+                sc.add(renderer.render(nInd));
+            }
+        }
+
+        return sc;
+
+    }
+
+    public static GenericModel4 getSuperContextOfALternativeTopic(String t) throws OWLOntologyCreationException {
+
+        String firstSpecificTopic = getFirstSpecificTopic(t);
+
+        GenericModel4 topic = new GenericModel4(t);
+
+        if (firstSpecificTopic.isBlank()) {
+            return topic;
+        }
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + firstSpecificTopic));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasSuperContext"));
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (renderer.render(nInd).compareTo(t) != 0) {
+                topic.setSuperContext(renderer.render(nInd));
+            }
+        }
+
+        p = factory.getOWLObjectProperty(IRI.create(uri + "hasSuperContext2"));
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (renderer.render(nInd).compareTo(t) != 0) {
+                topic.setSuperContext(renderer.render(nInd));
+            }
+        }
+
+        return topic;
+
+    }
+
+    public static GenericModel5 getSuperContextChildren(String s) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        GenericModel5 sc = new GenericModel5(s);
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + s));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopContext"));
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            sc.setChild(setChildren(renderer.render(nInd)));
+        }
+
+        return sc;
+
+    }
+
+    public static String getTopContextCategory(String sc) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + sc));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopContextCategory"));
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            return renderer.render(nInd);
+        }
+
+        return "";
+
+    }
+
+    public static String getChildCategory(String c) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + c));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "IsParentCategoryOf"));
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            return renderer.render(nInd);
+        }
+
+        return "";
+    }
+
+    public static GenericModel7 getAllContextGroup(String t) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        GenericModel7 term = new GenericModel7(t);
+
+        List<String> TMCs = getSpecificTopic(t);
+
+        OWLNamedIndividual ind;
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasContext"));
+
+        List<String> tempContexts;
+        for (String s : TMCs) {
+            tempContexts = new ArrayList<>();
+            ind = factory.getOWLNamedIndividual(IRI.create(uri + s));
+            for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+                tempContexts.add(renderer.render(nInd));
+            }
+
+            term.setContextGroup(tempContexts);
+
+        }
+
+        return term;
+
+    }
+
+    public static String getFileOfTerm(String t) throws FileNotFoundException {
+
+        t = t.toLowerCase();
+
+        File file = new File(projectDir + "\\Files\\Module2.ExternalTerms\\" + t + ".json");
+
+        if (file.exists()) {
+            Scanner reader = new Scanner(file);
+            return reader.nextLine();
+        }
+
+        return "";
+    }
+
+    private static GenericModel6 setChildren(String c) throws OWLOntologyCreationException {
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + c));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasSubContext"));
+
+        List<GenericModel6> children = new ArrayList<>();
+        GenericModel6 child = new GenericModel6(getCategoryOfContext(c), c);
+
+        for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            child.setChild(setChildren(renderer.render(nInd)));
+
+        }
+
+        return child;
+    }
+
+    public static GenericModel8 getPragmaticRulesForAltenativeTopicAndContext(List<String> inf) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        GenericModel8 term = new GenericModel8(inf.get(0));
+
+        for (int i = 1; i < inf.size(); i++) {
+            term.setContexts(inf.get(i));
+        }
+
+        List<String> TMCs = getSpecificTopic(term.name);
+
+        OWLNamedIndividual ind;
+        OWLObjectProperty p1 = factory.getOWLObjectProperty(IRI.create(uri + "hasPragmatic"));
+        OWLObjectProperty p2 = factory.getOWLObjectProperty(IRI.create(uri + "hasContext"));
+
+        for (String s : TMCs) {
+            ind = factory.getOWLNamedIndividual(IRI.create(uri + s));
+            if (reasoner.getObjectPropertyValues(ind, p1).getFlattened().iterator().hasNext()) {
+                String pragmatic = renderer.render(reasoner.getObjectPropertyValues(ind, p1).getFlattened().iterator().next());
+                boolean test = false;
+                for (String c : term.contexts) {
+                    for (OWLNamedIndividual nInd : reasoner.getObjectPropertyValues(ind, p2).getFlattened()) {
+                        if (renderer.render(nInd).compareTo(c) == 0) {
+                            test = true;
+                            break;
+                        }
+
+                    }
+                    if (!test) {
+                        break;
+                    }
+                }
+
+                if (test) {
+                    term.setRules(getRuleWithoutIntention(pragmatic));
+                }
+            }
+        }
+
+        return term;
 
     }
 

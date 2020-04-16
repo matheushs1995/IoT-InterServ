@@ -13,12 +13,14 @@ import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import module2.model.*;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
 
 public class IoTDescriptionDAO {
 
-    static File file = new File("C:/Users/mathe/Documents/Dropbox/Projetos/PragmaticIoT-V2/files/IoTDescription.owl");
+    static String projectDir = "C:\\Users\\mathe\\Documents\\Dropbox\\Projetos\\PRIME-IoT";
+    static File file = new File(projectDir + "/Files/Module2.Ontologies/IoTDescription.owl");
     static String uri = "http://www.semanticweb.org/mathe/ontologies/2019/4/IoTDescription#";
     static long lastModification = 0;
     static OWLOntologyManager manager;
@@ -35,7 +37,6 @@ public class IoTDescriptionDAO {
     }
 
     public static boolean tmcExist(String tmc) throws OWLOntologyCreationException {
-
         prepareAcess();
 
         OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + tmc));
@@ -46,7 +47,19 @@ public class IoTDescriptionDAO {
         } else {
             return false;
         }
+    }
+    
+    public static boolean idExist(String id) throws OWLOntologyCreationException {
+        prepareAcess();
 
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + id));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "isIdentificationOf"));
+
+        if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static void prepareOWLApi() throws OWLOntologyCreationException {
@@ -77,6 +90,62 @@ public class IoTDescriptionDAO {
 
         return null;
 
+    }
+
+    public static String getUnitsAndFunctionsForConvert(String id) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + id));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "thisIdentificationHasUnit"));
+
+        String unit = renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+
+        if (unit.compareTo("") == 0) {
+            return "inf";
+        }
+
+        p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopicMoreContextByID"));
+
+        String topic = renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+
+        ind = factory.getOWLNamedIndividual(IRI.create(uri + topic));
+        p = factory.getOWLObjectProperty(IRI.create(uri + "thisSTHasOrHadAnUnit"));
+
+        String unitsAndFunctions = "";
+
+        for (OWLNamedIndividual unitInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (renderer.render(unitInd).compareTo(unit) != 0) {
+                if (unitsAndFunctions.compareTo("") != 0) {
+                    unitsAndFunctions += ";";
+                }
+                unitsAndFunctions += getUnitAndFunction(unit, renderer.render(unitInd));
+            }
+        }
+
+        return unitsAndFunctions;
+    }
+
+    private static String getUnitAndFunction(String unitSource, String unitTarget) {
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + unitSource + "To" + unitTarget));
+        OWLDataProperty d = factory.getOWLDataProperty(IRI.create(uri + "hasFunction"));
+
+        String function = renderer.render(reasoner.getDataPropertyValues(ind, d).iterator().next());
+
+        return unitTarget + "," + function;
+    }
+
+    public static String getFunction(String unitSource, String unitTarget) {
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + unitSource + "To" + unitTarget));
+        OWLDataProperty d = factory.getOWLDataProperty(IRI.create(uri + "hasFunction"));
+
+        if (reasoner.getDataPropertyValues(ind, d).iterator().hasNext()) {
+            return renderer.render(reasoner.getDataPropertyValues(ind, d).iterator().next());
+        }
+
+        return "";
     }
 
     public static List<String> getAllUnitsByIoT(String iot) throws OWLOntologyCreationException {
@@ -346,7 +415,7 @@ public class IoTDescriptionDAO {
             for (OWLNamedIndividual unitInd : reasoner.getObjectPropertyValues(ind2, p1).getFlattened()) {
                 String unitT = renderer.render(unitInd);
                 if (unitT.compareTo(unit) != 0) {
-                    String tFunction = getFuntion(unit, unitT);
+                    String tFunction = getFunction(unit, unitT);
                     if (tFunction.isEmpty()) {
                         return "";
                     }
@@ -500,6 +569,21 @@ public class IoTDescriptionDAO {
 
     }
 
+    private static boolean isConsumerTopic(String topic) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + topic));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopicForConsume"));
+
+        for (OWLNamedIndividual indOd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            return true;
+        }
+
+        return false;
+
+    }
+
     private static boolean iotExists(String iot) throws OWLOntologyCreationException {
         prepareAcess();
 
@@ -512,22 +596,6 @@ public class IoTDescriptionDAO {
         }
 
         return false;
-    }
-
-    private static String getFuntion(String unit, String unitT) throws OWLOntologyCreationException {
-        prepareAcess();
-
-        OWLClass unitConvertClass = factory.getOWLClass(IRI.create(uri + "UnitConvert"));
-        OWLDataProperty d = factory.getOWLDataProperty(IRI.create(uri + "hasFunction"));
-
-        for (OWLNamedIndividual unitConvertInd : reasoner.getInstances(unitConvertClass, false).getFlattened()) {
-            if (renderer.render(unitConvertInd).compareTo(unit + "To" + unitT) == 0) {
-                return renderer.render(reasoner.getDataPropertyValues(unitConvertInd, d).iterator().next());
-            }
-        }
-
-        return "";
-
     }
 
     public static List<String> getAllUnitIfTopicHasOrHadUnit(String topic, String unit) throws OWLOntologyCreationException {
@@ -630,43 +698,173 @@ public class IoTDescriptionDAO {
         OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + iot));
         OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasIdentification"));
 
-        String tempS = "<strong class='thick space1'>Name:</strong>"
-                    + "<strong>"+ iot + "</strong>;";
+        String tempS = "<strong class='thick space2'>Name:</strong>"
+                + "<strong class='space1'>" + iot + "</strong>";
         for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
-            tempS += "<strong class='thick space1'>Identification:</strong>"
-                    + "<strong>"+ renderer.render(indO) + "</strong>;";
-            
-        }
-        
-        p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopicMoreContext"));
-        for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
-            tempS += "<strong class='thick space1'>Specific Topic:</strong>"
-                    + "<strong>"+ renderer.render(indO) + "</strong>;";
+            tempS += "<strong class='thick space2'>Identification:</strong>"
+                    + "<strong class='space1'>" + renderer.render(indO) + ";</strong>";
 
         }
-        
+
+        p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopicMoreContext"));
+        for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            tempS += "<strong class='thick space2'>Specific Topic:</strong>"
+                    + "<strong class='space1'>" + renderer.render(indO) + ";</strong>";
+
+        }
+
         p = factory.getOWLObjectProperty(IRI.create(uri + "hasUnit"));
         for (OWLNamedIndividual indO : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
-            tempS += "<strong class='thick space1'>Unit:</strong>"
-                    + "<strong>"+ renderer.render(indO) + "</strong>;";
-            
+            tempS += "<strong class='thick space2'>Unit:</strong>"
+                    + "<strong class='space1'>" + renderer.render(indO) + ";</strong>";
+
         }
-        
+
         OWLDataProperty d = factory.getOWLDataProperty(IRI.create(uri + "hasKeywords"));
         for (OWLLiteral indO : reasoner.getDataPropertyValues(ind, d)) {
-            tempS += "<strong class='thick space1'>KeyWords:</strong>"
-                    + "<strong>"+ renderer.render(indO) + "</strong>;";
-            
+            tempS += "<strong class='thick space2'>KeyWords:</strong>"
+                    + "<strong class='space1'>" + renderer.render(indO) + ";</strong>";
+
         }
-        
+
         d = factory.getOWLDataProperty(IRI.create(uri + "hasGitHubLink"));
         for (OWLLiteral indO : reasoner.getDataPropertyValues(ind, d)) {
-            tempS += "<strong class='thick space1'>GitHub Link:</strong>"
-                    + "<strong>"+ renderer.render(indO) + "</strong>;";
-            
+            tempS += "<strong class='thick space2'>GitHub Link:</strong>"
+                    + "<strong class='space1'>" + renderer.render(indO) + ";</strong>";
+
         }
-        
+
         return tempS;
+    }
+
+    public static String getName(String id) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + id));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "isIdentificationOf"));
+        
+        if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
+            return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+        }
+
+        return "";
+    }
+
+    public static String getTopicForConsumeSimpleMethod(String topic) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        if (topic.compareTo("") == 0) {
+            return "inf";
+        }
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + topic));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopicForConsume"));
+
+        String temp = "";
+        for (OWLNamedIndividual topicInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (temp.compareTo("") != 0) {
+                temp += ",";
+            }
+            temp += renderer.render(topicInd);
+        }
+
+        if (temp.isBlank()) {
+            return "infc";
+        }
+
+        return temp;
+    }
+
+    public static String getTopic(String IoT) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + IoT));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopicMoreContext"));
+
+        if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
+            return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+        }
+
+        return "";
+    }
+
+    public static String getTopicForId(String id) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + id));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "hasTopicMoreContextByID"));
+
+        if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
+            return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+        } else {
+            return "";
+        }
+
+    }
+
+    public static String getUnit(String id) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + id));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "thisIdentificationHasUnit"));
+
+        if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
+            return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
+        }
+
+        return "";
+    }
+
+    public static List<GenericModel1> sameUnitGt1(String unit) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        List<GenericModel1> units = new ArrayList<>();
+
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + unit));
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "sameUnitGt"));
+
+        for (OWLNamedIndividual topicInd : reasoner.getObjectPropertyValues(ind, p).getFlattened()) {
+            if (renderer.render(topicInd).compareTo(unit) != 0) {
+                units.add(new GenericModel1(renderer.render(topicInd)));
+            }
+        }
+
+        return units;
+
+    }
+
+    public static List<GenericModel2> sameUnitGt2(String unit1) throws OWLOntologyCreationException {
+        prepareAcess();
+
+        List<GenericModel2> units = new ArrayList<>();
+
+        OWLNamedIndividual ind1 = factory.getOWLNamedIndividual(IRI.create(uri + unit1));
+        OWLNamedIndividual ind2;
+        OWLObjectProperty p = factory.getOWLObjectProperty(IRI.create(uri + "sameUnitGt"));
+        OWLDataProperty d = factory.getOWLDataProperty(IRI.create(uri + "hasFunction"));
+
+        String unit2;
+        String func;
+        for (OWLNamedIndividual topicInd : reasoner.getObjectPropertyValues(ind1, p).getFlattened()) {
+            unit2 = renderer.render(topicInd);
+            if (unit2.compareTo(unit1) != 0) {
+                ind2 = factory.getOWLNamedIndividual(IRI.create(uri + unit1 + "To" + unit2));
+                if (reasoner.getDataPropertyValues(ind2, d).iterator().hasNext()) {
+                    func = renderer.render(reasoner.getDataPropertyValues(ind2, d).iterator().next());
+                    units.add(new GenericModel2(unit2, func));
+                } else {
+                    units.add(new GenericModel2(unit2));
+                }
+
+            }
+        }
+
+        return units;
+
     }
 
 }

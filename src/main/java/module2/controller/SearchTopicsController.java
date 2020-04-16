@@ -1,18 +1,35 @@
-
 package module2.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
+import module2.dao.IoTTopicsMoreContextDAO;
+import module2.order.Order;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class SearchTopicsController extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-      
+            throws ServletException, IOException, OWLOntologyCreationException {
+        List<String> topics = IoTTopicsMoreContextDAO.getAllSpecificTopic();
+        topics = Order.orderList(topics);
+
+        List<String> tempL = new ArrayList<>();
+        for (int i = 0; i < topics.size(); i++) {
+            tempL.add(IoTTopicsMoreContextDAO.getAllInfomationAboutTopicInTHML(topics.get(i)));
+        }
+
+        request.setAttribute("topics", tempL);
+        RequestDispatcher view;
+        view = request.getRequestDispatcher("/SearchTopics.jsp");
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -27,7 +44,11 @@ public class SearchTopicsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (OWLOntologyCreationException ex) {
+            Logger.getLogger(SearchTopicsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -41,7 +62,11 @@ public class SearchTopicsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (OWLOntologyCreationException ex) {
+            Logger.getLogger(SearchTopicsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -28,7 +28,7 @@ public class Similarity {
     static String word = "word=";
     static String format = "format=json";
 
-    static String projectDir = "C:\\Users\\mathe\\Documents\\Dropbox\\Projetos\\PragmaticIoT-V2";
+    static String projectDir = "C:\\Users\\mathe\\Documents\\Dropbox\\Projetos\\PRIME-IoT";
 
     static List<String[]> descsAndSimilarity;
 
@@ -38,17 +38,19 @@ public class Similarity {
 
         Client client = ClientBuilder.newClient();
 
-        File file = new File(projectDir + "\\files\\" + w + ".json");
+        File file = new File(projectDir + "\\Files\\Module2.ExternalTerms\\" + w + ".json");
 
         String response;
 
         if (!file.exists()) {
-
-            response = client.target(URLBase + chooseAPI + "?" + uid + "&" + token + "&" + word + w + "&" + format)
+            
+            response = URLBase + chooseAPI + "?" + uid + "&" + token + "&" + word + w + "&" + format;
+            
+            response = client.target(response)
                     .request(MediaType.APPLICATION_JSON).get(String.class);
 
             if (!response.isBlank()) {
-                FileWriter writer = new FileWriter(projectDir + "\\files\\" + w + ".json");
+                FileWriter writer = new FileWriter(projectDir + "\\Files\\Module2.ExternalTerms\\" + w + ".json");
                 writer.write(response);
                 writer.close();
             }
@@ -106,7 +108,7 @@ public class Similarity {
     }
 
     public static String getSimilarTopicsOne(String topic, String id, String keywords) throws FileNotFoundException, JSONException, OWLOntologyCreationException {
-        File file = new File(projectDir + "\\files\\" + topic + ".json");
+        File file = new File(projectDir + "\\Files\\Module2.ExternalTerms" + topic + ".json");
 
         String response;
 

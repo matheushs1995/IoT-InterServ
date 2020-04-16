@@ -27,14 +27,12 @@ public class Save extends HttpServlet {
             }else{
                 response.getOutputStream().print("TNA");
             }
-        } catch (OWLOntologyCreationException ex) {
+        } catch (OWLOntologyCreationException ex){
             Logger.getLogger(Save.class.getName()).log(Level.SEVERE, null, ex);
         } catch (OWLOntologyStorageException ex) {
             Logger.getLogger(Save.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+       
     }
 
     @Override

@@ -1,73 +1,100 @@
 package examples;
 
-import StringMathConvertAndExecute.Expr;
-import StringMathConvertAndExecute.Parser;
-import StringMathConvertAndExecute.SyntaxException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class Consumer {
 
     Properties props;
-    KafkaProducer<String, String> producer;
     KafkaConsumer<String, String> consumer;
+    
     String IoTSensor;
-    List<String[]> functionConvert;
-    static final String server = "localhost:9092";
-
-    public void setProperties() {
-        setProducer();
-        setConsumer();
-    }
+    List<String[]> functionConvert = new ArrayList<>();
+    
+    double totalValue;
+    double currentValue;
+    
 
     public Consumer(String i) {
         IoTSensor = i;
     }
 
-    public void start() {
-        setProperties();
+    public void start() throws OWLOntologyCreationException {
+        setConsumer();
 
-        String s1 = prepareTopic("PrepareConsumer");
+        String s1 = getResponse("PrepareConsumer");
+        
+        System.out.println("Consumer: "+IoTSensor+ ", Status Topics: "+s1);
+        
         if (!testResponse(s1)) {
             return;
         }
-
-        String s2 = prepareTopic("GetFunctionsforConvert");
+        
+        String s2 = getResponse("GetFunctionsForConvert");
+        
+        System.out.println("Consumer: "+IoTSensor+ ", Status Units and Functions: "+s2);
+        
         if (!testResponse(s2)) {
             return;
         }
-
+        
         formatFunctions(s2);
 
+        System.out.println("");
+        
         startConsumer(s1);
-
+        
+    }
+    
+    public void close(){
         consumer.close();
-        producer.close();
-
+    }
+    
+    private String getResponse(String topic){
+        Client client = ClientBuilder.newClient();
+        String response = client.target(ServerInformation.getServerAddress()+topic+"?id="+IoTSensor)
+                    .request(MediaType.APPLICATION_JSON).get(String.class);
+        
+        return response;
     }
 
     private static boolean testResponse(String s) {
+        
         if (s.compareTo("") == 0) {
-            System.out.println("Time out !!!");
+            System.out.println("blank message !!!");
             return false;
         }
+        
+        if (s.compareTo("error") == 0) {
+            System.out.println("error to prepare producer !!!");
+            return false;
+        }
+        
+        if (s.compareTo("rb") == 0) {
+            System.out.println("Request is blank");
+            return false;
+        }
+        
         if (s.compareTo("inf") == 0) {
-            System.out.println("Identification not found !!!");
+            System.out.println("identify not found !!!");
             return false;
         }
 
-        if (s.compareTo("FPC") == 0) {
-            System.out.println("Erro to prepare consumer");
+        if (s.compareTo("infc") == 0) {
+            System.out.println("identify is not from a consumer !!!");
             return false;
         }
 
@@ -82,13 +109,16 @@ public class Consumer {
             @Override
             public void run() {
                 while (true) {
+                    System.out.print("");
                     ConsumerRecords<String, String> records = consumer.poll(100);
                     for (ConsumerRecord<String, String> record : records) {
+
                         try {
-                            System.out.println("Topic: " + record.topic() + ", Value: " + convert(record.value()));
-                        } catch (SyntaxException ex) {
-                            Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
+                            System.out.println("ID: "+IoTSensor+", Topic: " + record.topic() + ", Value: " + convert(record.value()));
+                        } catch (Exception ex) {
+
                         }
+
                     }
                 }
             }
@@ -96,7 +126,8 @@ public class Consumer {
         }.start();
     }
 
-    private String convert(String s) throws SyntaxException {
+    private String convert(String s) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        
         String[] recordValue = s.split(",");
 
         if (recordValue.length == 1) {
@@ -105,36 +136,79 @@ public class Consumer {
         if (recordValue.length == 2) {
             return resultStringExecute(getFunction(recordValue[0]), recordValue[1]);
         }
-
+        
         return recordValue[0] + "," + resultStringExecute(getFunction(recordValue[1]), recordValue[2]);
     }
 
-    private String getFunction(String unit) {
+    private int getFunction(String unit) {
         for (int i = 0; i < functionConvert.size(); i++) {
-            if (functionConvert.get(i)[0].compareTo("unit") == 0) {
-                return functionConvert.get(i)[1];
+            if (functionConvert.get(i)[0].compareTo(unit) == 0) {
+                return i;
             }
         }
 
-        return "";
+        return -1;
     }
 
-    public String resultStringExecute(String s, String value) throws SyntaxException {
+    public String resultStringExecute(int i, String value) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
-        if (s.compareTo("") == 0) {
-            return "Error2: value-" + value;
+        if (i == -1) {
+            return value;
         }
 
-        for (int i = 0; i < s.length(); i++) {
-            if ("y".compareTo("" + s.charAt(i)) == 0 || "Y".compareTo("" + s.charAt(i)) == 0) {
-                s = s.substring(0, i) + value + s.substring(i + 1, s.length());
+        totalValue= Double.parseDouble(value);
+        for (int j = 1; j < functionConvert.get(i).length ; j++) {
+            String[] tempS = functionConvert.get(i)[j].split("_");
+            if(tempS.length !=2){
+                return "Error3: value-" + value;
             }
+            getResult(tempS[0],tempS[1]);
         }
 
-        Expr expr;
-        expr = Parser.parse(s);
+        return ""+totalValue;
+    }
 
-        return "" + expr.value();
+    public void getResult(String op, String value) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        try {
+            Class c = Class.forName("examples.Consumer");
+            Method m = c.getMethod("get" + op);
+
+            currentValue = Double.parseDouble(value);
+            m.invoke(this);
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Operator \"" + op + "\" does not exist");
+            Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void getO1() {
+        totalValue += currentValue;
+    }
+
+    public void getO2() {
+        totalValue -= currentValue;
+    }
+
+    public void getO3() {
+        totalValue *= currentValue;
+    }
+
+    public void getO4() {
+        if (totalValue != 0) {
+            totalValue /= currentValue;
+        }
+    }
+
+    public void getO5() {
+        totalValue = Math.pow(totalValue, currentValue);
+    }
+
+    public void getO6() {
+        if(currentValue != 0){
+            totalValue = Math.pow(totalValue, 1/currentValue);
+        }
     }
 
     private static List<String> formatTopics(String s) {
@@ -152,52 +226,10 @@ public class Consumer {
             functionConvert.add(tempS[i].split(","));
         }
     }
-
-    private String prepareTopic(String topic) {
-        try {
-            producer.send(new ProducerRecord<>(server + "/" + topic, IoTSensor)).get();
-        } catch (Exception e) {
-            producer.close();
-            return "FPC";
-        }
-        return getResponse(IoTSensor + "-" + topic);
-    }
-
-    private String getResponse(String topic) {
-        int timeWaiting = 500; //miliseconds
-        timeWaiting *= 60;
-
-        long lastTime;
-
-        consumer.subscribe(Collections.singletonList(topic));
-
-        lastTime = System.currentTimeMillis() + timeWaiting;
-        while (lastTime > System.currentTimeMillis()) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records) {
-                return record.value();
-            }
-        }
-
-        return "";
-    }
-
-    private void setProducer() {
-        props = new Properties();
-        props.put("bootstrap.servers", server);
-        props.put("acks", "all");
-        props.put("retries", 0);
-        props.put("batch.size", 16384);
-        props.put("linger.ms", 1);
-        props.put("buffer.memory", 33554432);
-        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        producer = new KafkaProducer<>(props);
-    }
-
+    
     private void setConsumer() {
         props = new Properties();
-        props.put("bootstrap.servers", server);
+        props.put("bootstrap.servers", "localhost:9092");
         props.put("group.id", "consumer");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");

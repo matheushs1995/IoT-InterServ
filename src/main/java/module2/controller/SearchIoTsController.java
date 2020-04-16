@@ -32,7 +32,7 @@ public class SearchIoTsController extends HttpServlet {
             tempL.add(IoTDescriptionDAO.getAllInfomationAboutIoTInTHML(Iots.get(i)));
         }
         
-        request.setAttribute("iots", Iots);
+        request.setAttribute("iots", tempL);
         RequestDispatcher view;
         view = request.getRequestDispatcher("/SearchIoTs.jsp");
         view.forward(request, response);

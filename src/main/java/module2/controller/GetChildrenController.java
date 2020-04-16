@@ -22,6 +22,7 @@ public class GetChildrenController extends HttpServlet {
             
             if(children.isEmpty()){
                 response.getOutputStream().print("null");
+                return;
             }
             
             String category = IoTTopicsMoreContextDAO.getCategoryOfContext(children.get(0));

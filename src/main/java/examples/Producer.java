@@ -1,12 +1,15 @@
 package examples;
 
-import java.util.Collections;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class Producer {
 
@@ -14,81 +17,84 @@ public class Producer {
     KafkaProducer<String, String> producer;
     KafkaConsumer<String, String> consumer;
     String IoTSensor;
-    static final String server = "localhost:9092";
+    static final String serverID = "001";
 
     public void setProperties() {
         setProducer();
         setConsumer();
     }
-    
-    public Producer(String i){
+
+    public Producer(String i) {
         IoTSensor = i;
     }
 
-    public void start() {
+    public void start() throws OWLOntologyCreationException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException, IOException {
         setProperties();
 
-        String s = prepareProducer();
+        String s = getResponse("PrepareProducer");
 
+        if (!testResponse(s)) {
+            return;
+        }
+
+        System.out.println("Producer: start");
+        startProducer();
+    }
+
+    private static boolean testResponse(String s) {
         if (s.compareTo("") == 0) {
-            System.out.println("Time out !!!");
-            return;
+            System.out.println("Blank message !!!");
+            return false;
         }
-        if (s.compareTo("tnf") == 0) {
-            System.out.println("Topic not found !!!");
-            return;
-        }
-
-        if (s.compareTo("FPC") == 0) {
-            System.out.println("Erro to prepare consumer");
-            return;
+        if (s.compareTo("inf") == 0) {
+            System.out.println("identify not found !!!");
+            return false;
         }
 
-        startProducer(s);
+        if (s.compareTo("error") == 0) {
+            System.out.println("error to prepare producer !!!");
+            return false;
+        }
+
+        if (s.compareTo("odi") == 0) {
+            System.out.println("Ontology information is not complete");
+            return false;
+        }
+
+        if (s.compareTo("rb") == 0) {
+            System.out.println("Request is blank");
+            return false;
+        }
+
+        return true;
+    }
+
+    public void close() {
         closeProducer();
-
         consumer.close();
         producer.close();
-
     }
 
-    private void startProducer(String s) {
-        producer.send(new ProducerRecord<>(IoTSensor, s));
+    private String getResponse(String topic) {
+        Client client = ClientBuilder.newClient();
+        String response = client.target(ServerInformation.getServerAddress() + topic + "?id=" + IoTSensor)
+                .request(MediaType.APPLICATION_JSON).get(String.class);
+
+        return response;
     }
 
-    private String prepareProducer() {
+    private void startProducer() {
 
-        try {
-            producer.send(new ProducerRecord<>(server+"/PrepareProducer", IoTSensor)).get();
-        } catch (Exception e) {
-            producer.close();
-            return "FPC";
-        }
-        return getResponse();
-
-    }
-
-    private String getResponse() {
-        int timeWaiting = 500; //miliseconds
-        timeWaiting *= 60;
-
-        long lastTime;
-
-        consumer.subscribe(Collections.singletonList(IoTSensor));
-
-        lastTime = System.currentTimeMillis() + timeWaiting;
-        while (lastTime > System.currentTimeMillis()) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records) {
-                return record.value();
+        for (int j = 0; j < 100; j++) {
+            for (int i = 0; i < 40; i += 5) {
+                producer.send(new ProducerRecord<>(IoTSensor, "" + i));
             }
         }
-        return "";
     }
 
     private String closeProducer() {
         try {
-            producer.send(new ProducerRecord<>(server+"/CloseProducer", IoTSensor)).get();
+            producer.send(new ProducerRecord<>(serverID + "-CloseProducer", IoTSensor)).get();
         } catch (Exception e) {
             producer.close();
             return "MNS";

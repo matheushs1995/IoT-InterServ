@@ -1,0 +1,10 @@
+@relation GT1
+
+@attribute Residence {PowerPlant}
+@attribute LivingBeings {Person}
+@attribute Country {Chile}
+@attribute pragmatic {P1}
+
+@data
+PowerPlant,Person,Chile,P1
+

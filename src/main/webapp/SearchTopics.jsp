@@ -10,8 +10,8 @@
         <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
         <link rel="stylesheet" type="text/css" href="css/util.css">
-        <link rel="stylesheet" type="text/css" href="css/IoT10.css">
-        <script src="js/IoT18.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/IoT11.css">
+        <script src="js/IoT19.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     </head>
     <body>
@@ -35,7 +35,7 @@
                         </button>
                         <div class="contentDivTop_list left" id="thisList_1">
                             <p class="itemList"><a href="CreateIoTController">Create</a></p><br>
-                            <p class="itemList"><a href="">Search</a></p>
+                            <p class="itemList"><a href="SearchIoTsController">Search</a></p>
                         </div>
                     </div>
                     <div class="containerDivTop_list">
@@ -45,7 +45,7 @@
                         </button>
                         <div class="contentDivTop_list left" id="thisList_2">
                             <p class="itemList"><a href="CreateTopicController">Create</a></p><br>
-                            <p class="itemList"><a href="">Search</a></p>
+                            <p class="itemList"><a href="SearchTopicsController">Search</a></p>
                         </div>
                     </div>
                     <div class="containerDivTop_list">
@@ -74,8 +74,11 @@
 
             <div id="divMaster" style='max-width: 70%; max-height: calc(100vh - 116px); overflow: auto;' class="divMaster">
                 <form id="form" class="form">
-                    <c:forEach items="${iots}" var="iot"> 
-                        ${iot}  
+                    <span class="titleSection">
+                        Specific Topics:
+                    </span>
+                    <c:forEach items="${topics}" var="topic"> 
+                        <div class='checkboxDiv input1 inputFormat2'>${topic}</div>  
                     </c:forEach> 
                 </form>
             </div>

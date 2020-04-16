@@ -22,14 +22,14 @@ public class Order {
     private static void quickSort1(List<String> v, int left, int right) {
         int l = left;
         int r = right;
-        double pivo = Double.parseDouble(v.get((l + r) / 2));
+        String pivo = v.get((l + r) / 2);
         String troca;
 
         while (l <= r) {
-            while (Double.parseDouble(v.get(l)) < pivo) {
+            while (v.get(l).compareTo(pivo)<0) {
                 l = l + 1;
             }
-            while (Double.parseDouble(v.get(r)) > pivo) {
+            while (v.get(r).compareTo(pivo)>0) {
                 r = r - 1;
             }
             if (l <= r) {

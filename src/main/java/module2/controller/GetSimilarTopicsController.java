@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class GetSimilarTopicsController extends HttpServlet {
 
-    static String projectDir = "C:\\Users\\mathe\\Documents\\Dropbox\\Projetos\\PragmaticIoT-V2";
+    static String projectDir = "C:\\Users\\mathe\\Documents\\Dropbox\\Projetos\\PRIME-IoT";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileNotFoundException, JSONException, OWLOntologyCreationException {

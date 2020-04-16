@@ -14,11 +14,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
- 
+    <dependencies>      
         <dependency>
             <groupId>com.hultiglib.hultiglib</groupId>
             <artifactId>hultiglib.sumo</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.weka.weka</groupId>
+            <artifactId>weka</artifactId>
             <version>1.0.0</version>
         </dependency>
         
@@ -157,11 +162,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
@@ -210,7 +210,7 @@
             <artifactId>jersey-all</artifactId>
             <version>2.22.2</version>
         </dependency>
-
+        
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
@@ -222,7 +222,7 @@
             <artifactId>org.json</artifactId>
             <version>chargebee-1.0</version>
         </dependency>
-
+        
     </dependencies>
 
     <build>
