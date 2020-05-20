@@ -36,5 +36,22 @@ public class Test {
         Producer p = new Producer("ID1");
         p.start();
     }
+    
+    public static void test4() throws OWLOntologyCreationException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException, IOException {
 
+        System.out.println("");
+
+        Consumer c1 = new Consumer("ID3");
+        Consumer c2 = new Consumer("ID4");
+        Consumer c3 = new Consumer("ID5");
+        Consumer c4 = new Consumer("ID6");
+        c1.start();
+        c2.start();
+        c3.start();
+        c4.start();
+
+        Producer p = new Producer("ID1");
+        p.start();
+    }
+    
 }

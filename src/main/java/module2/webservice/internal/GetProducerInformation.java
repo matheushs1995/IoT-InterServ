@@ -41,7 +41,7 @@ public class GetProducerInformation extends HttpServlet {
     public static String prepareMessage(String id) throws OWLOntologyCreationException {
 
         if (!IoTDescriptionDAO.idExist(id)) {
-            return "inf";
+            return "idnf";
         }
 
         String name = IoTDescriptionDAO.getName(id);
@@ -49,7 +49,7 @@ public class GetProducerInformation extends HttpServlet {
         String unit = IoTDescriptionDAO.getUnit(id);
 
         if (name.isBlank() || topic.isBlank() || unit.isBlank()) {
-            return "odi";
+            return "ode";
         }
 
         String pragmatic = IoTTopicsMoreContextDAO.getPragmatic(topic);

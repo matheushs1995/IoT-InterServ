@@ -2,26 +2,31 @@ package module3.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import module3.controller.Manager;
+import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
+import weka.core.Debug;
+import weka.core.DenseInstance;
+import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils;
 
 public class TermGroup {
 
-    public static List<Integer> modelUpdated = new ArrayList<>();
-    public static List<Integer> prepareClassifier = new ArrayList<>();
-
     private String name;
     private int status;
+    private int index;
     private J48 classifier = new J48();
     private J48 classifierCopy = new J48();
+    private Evaluation evaluation;
 
     static ConverterUtils.DataSource ds;
     static Instances ins;
+
+    public int getIndex() {
+        return index;
+    }
 
     public TermGroup(String n) throws FileNotFoundException {
         name = n;
@@ -77,7 +82,7 @@ public class TermGroup {
     public void setClassifierCopy() throws Exception {
         ds = new ConverterUtils.DataSource(Manager.pathModels + "\\" + name + ".arff");
         ins = ds.getDataSet();
-        int index = getIndex();
+        index = generateIndex();
         ins.setClassIndex(index);
 
         classifierCopy.buildClassifier(ins);
@@ -86,9 +91,16 @@ public class TermGroup {
         classifier = classifierCopy;
         status = 0;
 
+        evaluation = new Evaluation(ins);
+        evaluation.crossValidateModel(classifier, ins, 10, new Debug.Random(1));
+
     }
 
-    private int getIndex() throws FileNotFoundException {
+    public String getEvaluation() {
+        return evaluation.toSummaryString();
+    }
+
+    private int generateIndex() throws FileNotFoundException {
         File f = new File(Manager.pathModels + "\\" + name + ".arff");
         Scanner s = new Scanner(f);
 
@@ -100,5 +112,26 @@ public class TermGroup {
 
         return s.nextLine().split(",").length - 1;
 
+    }
+
+    public int getClassification(String orderContext) throws Exception {
+        String[] tempSV = orderContext.split(",");
+        Instance newI = new DenseInstance(index+1);
+        newI.setDataset(ins);
+
+        for (int i = 0; i < tempSV.length; i++) {
+            newI.setValue(i, tempSV[i]);
+        }
+        
+        double[] prob= classifier.distributionForInstance(newI);
+        
+        int max=0;
+        for(int i=1; i< prob.length; i++){
+            if(prob[max]< prob[i]){
+                max=i;
+            }
+        }
+
+        return max;
     }
 }

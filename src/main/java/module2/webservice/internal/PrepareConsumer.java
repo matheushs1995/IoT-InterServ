@@ -1,4 +1,3 @@
-
 package module2.webservice.internal;
 
 import java.io.IOException;
@@ -30,13 +29,12 @@ public class PrepareConsumer extends HttpServlet {
             } catch (Exception ex) {
                 response = "error"; // error to prepare
             }
-        }else{
+        } else {
             response = "rb"; //request-blank
         }
 
         resp.getWriter().print(response);
 
     }
-    
 
 }

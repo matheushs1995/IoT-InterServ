@@ -304,7 +304,9 @@ public class IoTTopicsMoreContextDAO {
         }
         int[] test = new int[contexts.length];
 
-        //String[] topicInfo = values[6].split(";");
+        //String[] topicInfo = values[6].split(";");   //future update
+        boolean updateTG = false;
+
         prepareAcess();
         OWLClass class1 = factory.getOWLClass(IRI.create(uri + "SuperContext"));
         OWLNamedIndividual ind1, ind2;
@@ -687,6 +689,7 @@ public class IoTTopicsMoreContextDAO {
         int t = 0;
 
         if (pragmatic != null) {
+            updateTG = true;
             ind2 = factory.getOWLNamedIndividual(IRI.create(uri + pragInd));
             p1 = factory.getOWLObjectProperty(IRI.create(uri + "hasPragmatic"));
             OWLObjectPropertyAssertionAxiom axiom3 = factory.getOWLObjectPropertyAssertionAxiom(p1, ind1, ind2);
@@ -860,7 +863,9 @@ public class IoTTopicsMoreContextDAO {
             manager.applyChange(addAxiom);
 
             manager.saveOntology(ontology);
-
+            if (updateTG) {
+                MachineLearning.setTG(gt);
+            }
         }
 
         return TMC;
@@ -1082,7 +1087,7 @@ public class IoTTopicsMoreContextDAO {
         if (reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().hasNext()) {
             return renderer.render(reasoner.getObjectPropertyValues(ind, p).getFlattened().iterator().next());
         }
-        
+
         return "";
     }
 
@@ -1414,6 +1419,26 @@ public class IoTTopicsMoreContextDAO {
 
             t = renderer.render(reasoner.getObjectPropertyValues(ind2, p2).getFlattened().iterator().next());
             rules.add(new String[]{r, t});
+
+        }
+
+        return rules;
+    }
+
+    public static List<String> getOnlyRule(String pragmatic) throws OWLOntologyCreationException {
+
+        prepareAcess();
+
+        List<String> rules = new ArrayList<>();
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(uri + pragmatic));
+        OWLObjectProperty p1 = factory.getOWLObjectProperty(IRI.create(uri + "hasRule"));
+        
+        OWLNamedIndividual ind2;
+        String r;
+        for (OWLNamedIndividual rule : reasoner.getObjectPropertyValues(ind, p1).getFlattened()) {
+            ind2 = factory.getOWLNamedIndividual(IRI.create(uri + renderer.render(rule)));
+            r = getFirstNameOfIndividualClassForRules(renderer.render(rule));
+            rules.add(r);
 
         }
 

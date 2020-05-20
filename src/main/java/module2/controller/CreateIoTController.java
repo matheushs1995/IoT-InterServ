@@ -14,7 +14,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class CreateIoTController extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, OWLOntologyCreationException {
         request.setAttribute("iots", IoTDescriptionDAO.getAllIoTs());
@@ -42,15 +41,5 @@ public class CreateIoTController extends HttpServlet {
             Logger.getLogger(CreateIoTController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

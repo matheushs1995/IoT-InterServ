@@ -1,6 +1,6 @@
 package module1.ruleFunctions;
 
-import Allmodules.conector.SimpleProducer;
+import module1.conector.SimpleProducer;
 
 public class FT1 implements FunctionType {
 

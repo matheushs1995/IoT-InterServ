@@ -66,9 +66,5 @@ public class GetTMCController extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

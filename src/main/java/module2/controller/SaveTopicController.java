@@ -11,7 +11,7 @@ import module2.dao.IoTTopicsMoreContextDAO;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-public class Save extends HttpServlet {
+public class SaveTopicController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,9 +28,9 @@ public class Save extends HttpServlet {
                 response.getOutputStream().print("TNA");
             }
         } catch (OWLOntologyCreationException ex){
-            Logger.getLogger(Save.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SaveTopicController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (OWLOntologyStorageException ex) {
-            Logger.getLogger(Save.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SaveTopicController.class.getName()).log(Level.SEVERE, null, ex);
         }
        
     }
@@ -39,11 +39,6 @@ public class Save extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {     
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
     private static String convert(String value) {
         String[] funcBits = value.split(" ");

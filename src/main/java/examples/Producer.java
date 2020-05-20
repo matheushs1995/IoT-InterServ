@@ -3,6 +3,7 @@ package examples;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
+import java.util.Scanner;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
@@ -17,7 +18,6 @@ public class Producer {
     KafkaProducer<String, String> producer;
     KafkaConsumer<String, String> consumer;
     String IoTSensor;
-    static final String serverID = "001";
 
     public void setProperties() {
         setProducer();
@@ -85,16 +85,20 @@ public class Producer {
 
     private void startProducer() {
 
-        for (int j = 0; j < 100; j++) {
-            for (int i = 0; i < 40; i += 5) {
+        Scanner s = new Scanner(System.in);
+        while (true) {
+            try {
+                double i = Double.parseDouble(s.next());
                 producer.send(new ProducerRecord<>(IoTSensor, "" + i));
+            } catch (Exception ex) {
+
             }
         }
     }
 
     private String closeProducer() {
         try {
-            producer.send(new ProducerRecord<>(serverID + "-CloseProducer", IoTSensor)).get();
+            producer.send(new ProducerRecord<>(ServerInformation.getServerAddress() + "CloseProducer", IoTSensor)).get();
         } catch (Exception e) {
             producer.close();
             return "MNS";

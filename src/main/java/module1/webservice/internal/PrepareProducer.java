@@ -29,7 +29,7 @@ public class PrepareProducer extends HttpServlet {
             } catch (Exception ex) {
                 response = "error"; // error to prepare
             }
-        }else{
+        } else {
             response = "rb"; //request-blank
         }
 

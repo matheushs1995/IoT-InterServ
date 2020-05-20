@@ -114,7 +114,7 @@ public class Consumer {
                     for (ConsumerRecord<String, String> record : records) {
 
                         try {
-                            System.out.println("ID: "+IoTSensor+", Topic: " + record.topic() + ", Value: " + convert(record.value()));
+                            System.out.println("ID: "+IoTSensor+", Topic: " + record.topic() + ", Value: " + convertFunction(record.value()));
                         } catch (Exception ex) {
 
                         }
@@ -126,7 +126,7 @@ public class Consumer {
         }.start();
     }
 
-    private String convert(String s) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    private String convertFunction(String s) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         
         String[] recordValue = s.split(",");
 
@@ -134,10 +134,10 @@ public class Consumer {
             return "Error1: value-" + s;
         }
         if (recordValue.length == 2) {
-            return resultStringExecute(getFunction(recordValue[0]), recordValue[1]);
+            return functionExecute(getFunction(recordValue[0]), recordValue[1]);
         }
         
-        return recordValue[0] + "," + resultStringExecute(getFunction(recordValue[1]), recordValue[2]);
+        return recordValue[0] + "," + functionExecute(getFunction(recordValue[1]), recordValue[2]);
     }
 
     private int getFunction(String unit) {
@@ -150,7 +150,7 @@ public class Consumer {
         return -1;
     }
 
-    public String resultStringExecute(int i, String value) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public String functionExecute(int i, String value) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
         if (i == -1) {
             return value;

@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
-import module2.model.ServerInformation;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -40,10 +39,12 @@ public class Producer {
 
         Producer p = verifyIfListContainProducer(i);
         if (p == null) {
-            
+
             String inf = getResponse("GetProducerInformation", i);
-           
-            if (inf.isBlank() || inf.compareTo("error") == 0 || inf.compareTo("odni") == 0 || inf.compareTo("inf") == 0 ) {
+            
+            //ode - Ontology data error 
+            //idnf - identifier not found
+            if (inf.isBlank() || inf.compareTo("error") == 0 || inf.compareTo("ode") == 0 || inf.compareTo("idnf") == 0) {
                 return inf;
             }
 
@@ -58,23 +59,22 @@ public class Producer {
                 p.setMapRule();
 
             }
-            
+
             producers.add(p);
 
         }
 
         return "OK";
     }
-    
-    private static String getResponse(String topic, String id){
+
+    private static String getResponse(String topic, String id) {
         Client client = ClientBuilder.newClient();
-        String response = client.target(ServerInformation.getServerAddress()+topic+"?id="+id)
-                    .request(MediaType.APPLICATION_JSON).get(String.class);
-        
+        String response = client.target(ServerInformation.getServerAddress() + topic + "?id=" + id)
+                .request(MediaType.APPLICATION_JSON).get(String.class);
+
         return response;
     }
-    
-    
+
     public String getId() {
         return id;
     }
@@ -113,7 +113,7 @@ public class Producer {
 
             }
         }
-        
+
         return "Not removed";
     }
 

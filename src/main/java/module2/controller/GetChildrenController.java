@@ -38,22 +38,12 @@ public class GetChildrenController extends HttpServlet {
         } catch (OWLOntologyCreationException ex) {
             Logger.getLogger(GetChildrenController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-        
-                
+             
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
     }
 
 }

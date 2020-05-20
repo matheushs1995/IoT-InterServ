@@ -46,7 +46,7 @@ public class GetPragmaticRules extends HttpServlet {
 
             } while (true);
 
-            try {//"Temp,Person,PowerPlant,Chile"
+            try {
                 GenericModel8 termRules = IoTTopicsMoreContextDAO.getPragmaticRulesForAltenativeTopicAndContext(requests);
                 String arrayToJson = objectMapper.writeValueAsString(termRules);
                 response = arrayToJson;

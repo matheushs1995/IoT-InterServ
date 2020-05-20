@@ -17,7 +17,11 @@ public class Manager {
 
     static List<TermGroup> termGroups = new ArrayList<>();
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static TermGroup getTermGroup(int id){
+        return termGroups.get(id);
+    }
+    
+    public static void start() throws FileNotFoundException {
 
         File[] files = pathModels.listFiles();
 
@@ -101,7 +105,7 @@ public class Manager {
 
                         for (int i = 0; i < termGroups.size(); i++) {
                             if (termGroups.get(i).getStatus() == 0) {
-                                File builderClassifier = new File(pathBuilderClassifiers + "\\" + termGroups.get(i).getName() + "txt");
+                                File builderClassifier = new File(pathBuilderClassifiers + "\\" + termGroups.get(i).getName() + ".txt");
                                 File model = new File(pathModels + "\\" + termGroups.get(i).getName() + ".arff");
 
                                 if (builderClassifier.exists()) {

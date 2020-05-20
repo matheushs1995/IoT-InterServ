@@ -720,7 +720,7 @@ function saveWithoutPragmaticRules() {
     alert(insertValues);
     insertValues = convert(insertValues);
     alert(insertValues);
-    $.get("Save?values=" + insertValues, function (d) {
+    $.get("SaveTopicController?values=" + insertValues, function (d) {
         alert(d);
     });
 }
@@ -736,7 +736,7 @@ function saveWithPragmaticRules() {
 
     var insertValues = localStorage.getItem("tempTopic" + topicCount) + "#" + localStorage.getItem("tempKeyword" + topicCount) + "#" + localStorage.getItem("tempSuperContexts" + topicCount) + "#" + localStorage.getItem("tempContexts" + topicCount) + "#" + tempS + "#" + localStorage.getItem("tempTypeTopic" + topicCount)+"#"+localStorage.getItem("tempTopicInformation" + topicCount);
     insertValues = convert(insertValues);
-    $.get("Save?values=" + insertValues, function (d) {
+    $.get("SaveTopicController?values=" + insertValues, function (d) {
         alert(d);
     });
 }

@@ -20,16 +20,38 @@ public class MachineLearning {
     static String modelsPath = "C:\\Users\\mathe\\Documents\\Dropbox\\Projetos\\PRIME-IoT\\Files\\Module2.MachineLearningModels\\";
 
     private static List<Integer> countTermGroup = new ArrayList<>();
+    private static List<String> termGroupMachineLearningServers = new ArrayList<>();
     private final static int limitCounTermGroupUpdateModel = 15;
+    private static boolean setModuleThreeServersAddress = false;
 
+    public static String getServerTermGroupMachineLearning(String tg){
+        int ind = Integer.parseInt(tg.substring(2, tg.length()));
+        if(termGroupMachineLearningServers.size() >= ind){
+            return termGroupMachineLearningServers.get(ind -1);
+        }else{
+            return "";
+        }
+    }
+    
     public static void setTG(String tg) {
+
+        if (!setModuleThreeServersAddress) {
+            setModuleThreeServersAddress = true;
+            ServerInformation.setModuleThreeServersAddress();
+        }
+
+        String[] response;
 
         try {
             int ind = Integer.parseInt(tg.substring(2, tg.length()));
             if (ind <= countTermGroup.size()) {
                 if (countTermGroup.get(ind - 1) == 15) {
-                    if (getResponse("SetModel", ind).compareTo("Set") == 0) {
+                    response = getResponse("SetModel", ind);
+                    if (response[0].compareTo("Set") == 0) {
                         countTermGroup.set(ind - 1, 0);
+                        if (termGroupMachineLearningServers.get(ind - 1) == null) {
+                            termGroupMachineLearningServers.set(ind - 1, response[1]);
+                        }
                     }
                 } else {
                     countTermGroup.set(ind - 1, countTermGroup.get(ind - 1) + 1);
@@ -37,10 +59,15 @@ public class MachineLearning {
             } else {
                 while (ind - 1 != countTermGroup.size()) {
                     countTermGroup.add(0);
+                    termGroupMachineLearningServers.add(null);
                 }
                 countTermGroup.add(1);
-                if (getResponse("SetModel", countTermGroup.size()).compareTo("Set") != 0) {
+                response = getResponse("SetModel", countTermGroup.size());;
+                if (response[0].compareTo("Set") != 0) {
                     countTermGroup.set(countTermGroup.size() - 1, 15);
+                    termGroupMachineLearningServers.add(null);
+                } else {
+                    termGroupMachineLearningServers.add(response[1]);
                 }
 
             }
@@ -50,18 +77,28 @@ public class MachineLearning {
         }
     }
 
-    private static String getResponse(String topic, int id) {
+    private static String[] getResponse(String topic, int id) {
+        String server;
+        if (termGroupMachineLearningServers.size() < id || termGroupMachineLearningServers.get(id - 1) == null) {
+            server = ServerInformation.getNextModuleThreeServerAddress();
+            if (server.isBlank()) {
+                return new String[]{""};
+            }
+        } else {
+            server = termGroupMachineLearningServers.get(id - 1);
+        }
+
         Client client = ClientBuilder.newClient();
-        String response = client.target(ServerInformation.getServerAddress()+topic + "?id=" + id)
+        String response = client.target(server + topic + "?id=" + id)
                 .request(MediaType.APPLICATION_JSON).get(String.class);
 
-        return response;
+        return new String[]{response, server};
     }
 
     public static void main(String[] args) throws OWLOntologyCreationException, IOException {
-        //generateModel("Temp");
-        setTG("GT1");
         
+        setTG("GT1");
+
     }
 
     public static String getModelTG(String tg) throws OWLOntologyCreationException, IOException {
