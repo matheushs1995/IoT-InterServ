@@ -163,7 +163,7 @@ function saveIoT() {
 
         var x = document.getElementById("iot").value + "#" + document.getElementById("keyword").value + "#" + document.getElementById("topic").value + "#" + document.getElementById("unit").value;
         x = convert(x);
-        $.get("SetIoTController?values=" + x, function (d) {
+        $.post("SetIoTController?values=" + x, function (d) {
             alert(d);
         });
     } else {
@@ -186,15 +186,14 @@ function saveIoT() {
         }
         var x = document.getElementById("iot").value + "#" + document.getElementById("keyword").value + "#" + document.getElementById("topic").value + "#" + document.getElementById("unitSource").value + "#" + func + "#" + document.getElementById("unit").value;
         x = convert(x);
-        $.get("SetIoTController?values=" + x, function (d) {
+        $.post("SetIoTController?values=" + x, function (d) {
             alert(d);
         });
 
 
     }
 
-}
-;
+};
 
 function getFunction() {
     var x = document.getElementsByClassName("addValue");
@@ -720,7 +719,7 @@ function saveWithoutPragmaticRules() {
     alert(insertValues);
     insertValues = convert(insertValues);
     alert(insertValues);
-    $.get("SaveTopicController?values=" + insertValues, function (d) {
+    $.post("SaveTopicController?values=" + insertValues, function (d) {
         alert(d);
     });
 }
@@ -736,7 +735,7 @@ function saveWithPragmaticRules() {
 
     var insertValues = localStorage.getItem("tempTopic" + topicCount) + "#" + localStorage.getItem("tempKeyword" + topicCount) + "#" + localStorage.getItem("tempSuperContexts" + topicCount) + "#" + localStorage.getItem("tempContexts" + topicCount) + "#" + tempS + "#" + localStorage.getItem("tempTypeTopic" + topicCount)+"#"+localStorage.getItem("tempTopicInformation" + topicCount);
     insertValues = convert(insertValues);
-    $.get("SaveTopicController?values=" + insertValues, function (d) {
+    $.post("SaveTopicController?values=" + insertValues, function (d) {
         alert(d);
     });
 }
