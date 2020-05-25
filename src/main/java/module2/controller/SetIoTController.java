@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class SetIoTController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String request1 = convert(request.getParameter("values"));
         String[] values = request1.split("#");
@@ -33,11 +33,6 @@ public class SetIoTController extends HttpServlet {
             Logger.getLogger(SetIoTController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
     }
 
     @Override

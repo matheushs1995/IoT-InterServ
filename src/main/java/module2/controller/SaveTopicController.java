@@ -14,8 +14,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class SaveTopicController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {  
         String request1 = convert(request.getParameter("values"));
         String[] values = request1.split("#");
 
@@ -32,12 +32,6 @@ public class SaveTopicController extends HttpServlet {
         } catch (OWLOntologyStorageException ex) {
             Logger.getLogger(SaveTopicController.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {     
     }
 
     private static String convert(String value) {
